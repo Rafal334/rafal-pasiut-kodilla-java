@@ -12,7 +12,7 @@ public class SieveOfErastothenes {
         return numbers;
     }
 
-    public ArrayList<Integer> getFirstNumbers(int n){
+    public ArrayList<Integer> getPrimeNumbers(int n){
         int[] numbers;
         numbers = generateNumbers(n);
         numbers[1]=0;
