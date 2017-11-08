@@ -12,16 +12,3 @@ repositories {
 dependencies {
     testCompile('junit:junit:4.12')
 }
-
-sourceSets {
-    main {
-        java {
-            srcDirs = ["scr/main/java"]
-        }
-    }
-    test {
-        java {
-            srcDirs = ["scr/test/java"]
-        }
-    }
-}
