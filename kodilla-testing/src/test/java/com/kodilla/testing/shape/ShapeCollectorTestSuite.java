@@ -126,6 +126,9 @@ public class ShapeCollectorTestSuite {
         Shape shape = collector.getFigure(1);
 
         //Then
+
+        //tutaj można by było jeszcze sprawdzić operatorem instanceof czy jest dobrego typu,
+        //dla lepszej czytelności
         Assert.assertEquals(square,shape);
 
     }
