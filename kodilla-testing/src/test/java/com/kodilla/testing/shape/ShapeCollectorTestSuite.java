@@ -17,8 +17,10 @@ public class ShapeCollectorTestSuite {
 
     @Before
     public void beforeEveryTest(){
-        testCounter++;
-        System.out.println("Test No: "+testCounter);
+//        testCounter++;
+//        System.out.println("Test No: "+testCounter);
+        //można skrócić
+        System.out.println("Test No: "+ ++testCounter);
     }
 
     @Test
@@ -62,10 +64,14 @@ public class ShapeCollectorTestSuite {
         collector.addFigure(triangle);
         collector.addFigure(square);
         collector.addFigure(circle);
+        Assert.assertEquals(3,collector.getFiguresNumber());
         boolean result = collector.removeFigure(circle);
 
         //Then
         Assert.assertTrue(result);
+        //przydałoby sie sprawdzic jednak czy rzeczywiście usunieto, np
+        Assert.assertEquals(2,collector.getFiguresNumber());
+
 
     }
 

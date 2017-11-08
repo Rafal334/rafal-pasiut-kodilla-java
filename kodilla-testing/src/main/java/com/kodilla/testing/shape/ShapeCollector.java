@@ -1,6 +1,7 @@
 package com.kodilla.testing.shape;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ShapeCollector {
     private ArrayList<Shape> figures;
@@ -33,16 +34,18 @@ public class ShapeCollector {
         }
     }
     public String showFigures(){
-        String result="";
-        int i=0;
-
-        for(Shape shape : figures){
-            result+=shape.getShapeName();
-            if(i<figures.size()-1){
-                result+=", ";
-            }
-            i++;
-        }
-        return result;
+//        String result="";
+//        int i=0;
+//
+//        for(Shape shape : figures){
+//            result+=shape.getShapeName();
+//            if(i<figures.size()-1){
+//                result+=", ";
+//            }
+//            i++;
+//        }
+      //  return result;
+        //można skrócić
+        return figures.stream().map(Shape::getShapeName).collect(Collectors.joining(", "));
     }
 }
