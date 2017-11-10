@@ -41,6 +41,9 @@ public class CollectionTestSuite {
 
         //Then
         Assert.assertEquals(emptyList,result);
+        //Tutaj raczej chcesz sprawdzicz czy jest pusta wiec czytelniejsze będzie
+        Assert.assertTrue("Kolekcja jest nullem",result!=null);
+        Assert.assertTrue("Kolekcja nie jest pusta",result.isEmpty());
     }
     @Test
     public void testOddNumbersExterminatorNormalList (){
