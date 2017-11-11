@@ -24,7 +24,7 @@ public class BookLibrary {
         return bookList;
     }
 
-    List<Book> listBooksInHandsOf(LibraryUser libraryUser){
+    List<Book> listBooksInHandsOf(LibraryUser libraryUser) {
 
         if(libraryUser == null) {
             return new ArrayList<>();

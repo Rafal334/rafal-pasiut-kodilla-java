@@ -112,7 +112,7 @@ public class BookDirectoryTestSuite {
         List<Book> borrowedBooks = bookLibrary.listBooksInHandsOf(user);
 
         //Than
-        assertEquals(1,borrowedBooks.size());
+        assertEquals(1, borrowedBooks.size());
     }
 
     @Test
@@ -126,7 +126,7 @@ public class BookDirectoryTestSuite {
         List<Book> borrowedBooks = bookLibrary.listBooksInHandsOf(user);
 
         //Than
-        assertEquals(5,borrowedBooks.size());
+        assertEquals(5, borrowedBooks.size());
     }
 
     @Test
