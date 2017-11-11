@@ -92,7 +92,8 @@ public class BookDirectoryTestSuite {
     public void testListBooksInHandsOfNoneBooks() {
 
         //Given
-        LibraryUser user = new LibraryUser("Jan", "Kowalski", "00000000000");
+        LibraryUser user = new LibraryUser("Jan","Kowalski","00000000000");
+        //Używaj Collections.EMPTY_LIST, bardziej wydajne, new ArrayList<>() tworzy 10 elementowa tablice mimo że jest pusta
         when(libraryDatabaseMock.listBooksInHandsOf(user)).thenReturn(Collections.EMPTY_LIST);
 
         //When
