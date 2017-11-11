@@ -4,6 +4,7 @@ import org.junit.*;
 import org.mockito.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -39,14 +40,14 @@ public class BookDirectoryTestSuite {
         resultListOfBooks.add(book2);
         resultListOfBooks.add(book3);
         resultListOfBooks.add(book4);
-        when(libraryDatabaseMock.listBooksWithCondition("Secret"))
-                .thenReturn(resultListOfBooks);
+        when(libraryDatabaseMock.listBooksWithCondition("Secret")).thenReturn(resultListOfBooks);
 
         // When
         List<Book> theListOfBooks = bookLibrary.listBooksWithCondition("Secret");
 
         // Then
         assertEquals(4, theListOfBooks.size());
+        verify(libraryDatabaseMock, times(1)).listBooksWithCondition("Secret");
     }
 
     @Test
@@ -69,6 +70,7 @@ public class BookDirectoryTestSuite {
         assertEquals(0, theListOfBooks0.size());
         assertEquals(15, theListOfBooks15.size());
         assertEquals(0, theListOfBooks40.size());
+        verify(libraryDatabaseMock, times(3)).listBooksWithCondition(anyString());
     }
 
     @Test
@@ -76,8 +78,7 @@ public class BookDirectoryTestSuite {
 
         // Given
         List<Book> resultListOf10Books = generateListOfNBooks(10);
-        when(libraryDatabaseMock.listBooksWithCondition(anyString()))
-                .thenReturn(resultListOf10Books);
+        when(libraryDatabaseMock.listBooksWithCondition(anyString())).thenReturn(resultListOf10Books);
 
         // When
         List<Book> theListOfBooks10 = bookLibrary.listBooksWithCondition("An");
@@ -91,21 +92,22 @@ public class BookDirectoryTestSuite {
     public void testListBooksInHandsOfNoneBooks() {
 
         //Given
-        LibraryUser user = new LibraryUser("Jan","Kowalski","00000000000");
-        when(libraryDatabaseMock.listBooksInHandsOf(user)).thenReturn(new ArrayList<>());
+        LibraryUser user = new LibraryUser("Jan", "Kowalski", "00000000000");
+        when(libraryDatabaseMock.listBooksInHandsOf(user)).thenReturn(Collections.EMPTY_LIST);
 
         //When
         List<Book> borrowedBooks = bookLibrary.listBooksInHandsOf(user);
 
         //Than
-        assertTrue("List is not empty",borrowedBooks.isEmpty());
+        assertTrue("List is not empty", borrowedBooks.isEmpty());
+        verify(libraryDatabaseMock, times(1)).listBooksInHandsOf(user);
     }
 
     @Test
     public void testListBooksInHandsOfOneBook() {
 
         //Given
-        LibraryUser user = new LibraryUser("Jan","Kowalski","00000000000");
+        LibraryUser user = new LibraryUser("Jan", "Kowalski", "00000000000");
         when(libraryDatabaseMock.listBooksInHandsOf(user)).thenReturn(generateListOfNBooks(1));
 
         //When
@@ -113,13 +115,14 @@ public class BookDirectoryTestSuite {
 
         //Than
         assertEquals(1, borrowedBooks.size());
+        verify(libraryDatabaseMock, times(1)).listBooksInHandsOf(user);
     }
 
     @Test
     public void testListBooksInHandsOf5Booksk() {
 
         //Given
-        LibraryUser user = new LibraryUser("Jan","Kowalski","00000000000");
+        LibraryUser user = new LibraryUser("Jan", "Kowalski", "00000000000");
         when(libraryDatabaseMock.listBooksInHandsOf(user)).thenReturn(generateListOfNBooks(5));
 
         //When
@@ -127,6 +130,7 @@ public class BookDirectoryTestSuite {
 
         //Than
         assertEquals(5, borrowedBooks.size());
+        verify(libraryDatabaseMock, times(1)).listBooksInHandsOf(user);
     }
 
     @Test
@@ -139,12 +143,12 @@ public class BookDirectoryTestSuite {
 
         //Than
         assertTrue(borrowedBooks.isEmpty());
-        verify(libraryDatabaseMock,never()).listBooksInHandsOf(any());
+        verify(libraryDatabaseMock, never()).listBooksInHandsOf(any());
     }
 
     private List<Book> generateListOfNBooks(int booksQuantity) {
         List<Book> resultList = new ArrayList<>();
-        for(int n = 1; n <= booksQuantity; n++){
+        for (int n = 1; n <= booksQuantity; n++) {
             Book theBook = new Book("Title " + n, "Author " + n, 1970 + n);
             resultList.add(theBook);
         }
