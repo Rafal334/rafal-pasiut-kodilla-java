@@ -42,15 +42,7 @@ public final class ForumUser {
         return userID;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
     public int getPostsNo() {
         return postsNo;
-    }
-
-    public LocalDate getDayOfBirth() {
-        return dayOfBirth;
     }
 }

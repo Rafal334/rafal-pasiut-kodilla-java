@@ -9,10 +9,6 @@ public class Forum {
 
     private List<ForumUser> userList;
 
-    public List<ForumUser> userList() {
-        return userList;
-    }
-
     public Forum() {
         Random rand = new Random();
         String name;
@@ -23,6 +19,10 @@ public class Forum {
             name = fileReader.getRandomName();
             userList.add(new ForumUser(i, name, getSexFromName(name), randomBirthday(), rand.nextInt(1000)));
         }
+    }
+
+    public List<ForumUser> userList() {
+        return userList;
     }
 
     private LocalDate randomBirthday() {
