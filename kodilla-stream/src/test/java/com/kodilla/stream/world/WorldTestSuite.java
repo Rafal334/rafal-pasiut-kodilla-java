@@ -17,7 +17,7 @@ public class WorldTestSuite {
         Continent continent;
         Country country;
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 6; i++) {
             continent = new Continent();
             for (int j = 0; j < rand.nextInt(100) + 1; j++) {
                 country = new Country();
