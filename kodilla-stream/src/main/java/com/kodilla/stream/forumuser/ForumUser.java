@@ -30,7 +30,7 @@ public final class ForumUser {
     }
 
     public boolean olderThan(int age) {
-        LocalDate older = dayOfBirth.plusYears(age).plusDays(1);
+        LocalDate older = dayOfBirth.plusYears(age);
         return older.isBefore(LocalDate.now());
     }
 
