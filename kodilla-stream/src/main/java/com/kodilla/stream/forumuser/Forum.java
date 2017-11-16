@@ -1,11 +1,5 @@
 package com.kodilla.stream.forumuser;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +16,7 @@ public class Forum {
     public Forum() {
         Random rand = new Random();
         String name;
-        // String path = Forum.class.getName().replace(".", "/") + "RandomUserNames.txt";
-        // System.out.println(path);
-        String path = "C:\\Projects\\kodilla-course\\kodilla-stream\\src\\main\\java\\com\\kodilla\\stream\\forumuser\\RandomUserNames";
+        String path = "kodilla-stream/src/main/java/com/kodilla/stream/forumuser/RandomUserNames";
         FileLinesReader fileReader = new FileLinesReader(path);
         userList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
