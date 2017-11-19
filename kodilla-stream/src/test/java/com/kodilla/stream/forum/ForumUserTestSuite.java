@@ -3,8 +3,6 @@ package com.kodilla.stream.forum;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sun.javaws.JnlpxArgs.verify;
-
 public class ForumUserTestSuite {
 
     @Test
