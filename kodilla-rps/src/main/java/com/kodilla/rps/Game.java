@@ -40,10 +40,10 @@ public class Game {
     }
 
     public void play() {
-        entarPlayerName();
+        enterPlayerName();
         init();
         while (!quitGame) {
-            if(restartGame){
+            if (restartGame) {
                 init();
                 restartGame = false;
             }
@@ -97,7 +97,7 @@ public class Game {
             } else {
                 if (quitGame) {
                     roundFinished = true;
-                } else if(restartGame){
+                } else if (restartGame) {
                     roundFinished = true;
                     restartGame = true;
                 }
@@ -116,11 +116,11 @@ public class Game {
         if (lowercaseInput.equals("help")) {
             gameMaster.help(champions);
         } else if (lowercaseInput.equals("exit")) {
-            if(confirmAction("quit the game")){
+            if (confirmAction("quit the game")) {
                 quitGame = true;
             }
-        } else if(lowercaseInput.equals("restart")){
-            if(confirmAction("restart the game")){
+        } else if (lowercaseInput.equals("restart")) {
+            if (confirmAction("restart the game")) {
                 restartGame = true;
             }
         } else if (champions.stream().map(champion -> champion.getName().toLowerCase()).anyMatch(name -> name.contains(lowercaseInput))) {
@@ -160,13 +160,13 @@ public class Game {
         return wins >= maxCount || loses >= maxCount;
     }
 
-    private boolean confirmAction(String action){
-        System.out.println("Do you really want to " + action +"?. Write yes or no.");
-        while(true){
+    private boolean confirmAction(String action) {
+        System.out.println("Do you really want to " + action + "?. Write yes or no.");
+        while (true) {
             String answer = readUserInput();
-            if(answer.toLowerCase().equals("yes")){
+            if (answer.toLowerCase().equals("yes")) {
                 return true;
-            } else if(answer.toLowerCase().equals("no")) {
+            } else if (answer.toLowerCase().equals("no")) {
                 return false;
             } else {
                 System.out.println("Wrong answer. Write yes or no.");
@@ -174,7 +174,7 @@ public class Game {
         }
     }
 
-    private void entarPlayerName() {
+    private void enterPlayerName() {
         boolean nameNotValid = true;
         while (nameNotValid) {
             gameMaster.askForName();
@@ -187,15 +187,16 @@ public class Game {
             }
         }
     }
+
     private void enterNumberOfRoundToWin() {
         boolean roundCountNotValid = true;
         while (roundCountNotValid) {
             gameMaster.askForRoundCount();
             String input = readUserInput();
             int roundCount;
-            try{
+            try {
                 roundCount = Integer.parseInt(input);
-                if(roundCount>0){
+                if (roundCount > 0) {
                     maxCount = roundCount;
                     roundCountNotValid = false;
                 }

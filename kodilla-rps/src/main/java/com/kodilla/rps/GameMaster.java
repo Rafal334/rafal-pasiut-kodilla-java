@@ -92,7 +92,7 @@ public class GameMaster {
         System.out.println("Please enter your name.");
     }
 
-    public void askForRoundCount(){
+    public void askForRoundCount() {
         System.out.println("To how many wins we play?");
     }
 
