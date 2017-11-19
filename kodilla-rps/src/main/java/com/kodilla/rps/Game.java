@@ -13,21 +13,23 @@ public class Game {
     private final ArrayList<Champion> champions;
     private GameMaster gameMaster;
     private boolean quitGame = false;
+    private boolean restartGame = false;
+    private String playerName;
 
-    public Game(Integer maxCount, ArrayList<Champion> champions) {
+    public Game(ArrayList<Champion> champions) {
         wins = 0;
         loses = 0;
         roundCount = 1;
-        this.maxCount = maxCount;
+        maxCount = 3;
         this.champions = champions;
         gameMaster = new GameMaster();
     }
 
-    public Game(Integer maxCount) {
+    public Game() {
         wins = 0;
         loses = 0;
         roundCount = 1;
-        this.maxCount = maxCount;
+        maxCount = 3;
         gameMaster = new GameMaster();
         champions = new ArrayList<>();
         champions.add(new Rock());
@@ -38,12 +40,17 @@ public class Game {
     }
 
     public void play() {
+        entarPlayerName();
         init();
         while (!quitGame) {
+            if(restartGame){
+                init();
+                restartGame = false;
+            }
             gameMaster.roundBegin(roundCount);
             round();
             if (isGameFinished()) {
-                gameMaster.endGame(wins >= maxCount);
+                gameMaster.endGame(wins >= maxCount, playerName);
                 gameMaster.newGame();
                 if (!readUserInput().toLowerCase().equals("yes")) {
                     quitGame = true;
@@ -55,7 +62,6 @@ public class Game {
             }
         }
         gameMaster.exitingGame();
-
     }
 
     private void init() {
@@ -63,6 +69,7 @@ public class Game {
         loses = 0;
         roundCount = 1;
         gameMaster.startTheGame();
+        enterNumberOfRoundToWin();
         gameMaster.help(champions);
     }
 
@@ -90,6 +97,9 @@ public class Game {
             } else {
                 if (quitGame) {
                     roundFinished = true;
+                } else if(restartGame){
+                    roundFinished = true;
+                    restartGame = true;
                 }
             }
         }
@@ -106,7 +116,13 @@ public class Game {
         if (lowercaseInput.equals("help")) {
             gameMaster.help(champions);
         } else if (lowercaseInput.equals("exit")) {
-            quitGame = true;
+            if(confirmAction("quit the game")){
+                quitGame = true;
+            }
+        } else if(lowercaseInput.equals("restart")){
+            if(confirmAction("restart the game")){
+                restartGame = true;
+            }
         } else if (champions.stream().map(champion -> champion.getName().toLowerCase()).anyMatch(name -> name.contains(lowercaseInput))) {
             return getChampion(input);
         } else {
@@ -142,5 +158,50 @@ public class Game {
 
     private boolean isGameFinished() {
         return wins >= maxCount || loses >= maxCount;
+    }
+
+    private boolean confirmAction(String action){
+        System.out.println("Do you really want to " + action +"?. Write yes or no.");
+        while(true){
+            String answer = readUserInput();
+            if(answer.toLowerCase().equals("yes")){
+                return true;
+            } else if(answer.toLowerCase().equals("no")) {
+                return false;
+            } else {
+                System.out.println("Wrong answer. Write yes or no.");
+            }
+        }
+    }
+
+    private void entarPlayerName() {
+        boolean nameNotValid = true;
+        while (nameNotValid) {
+            gameMaster.askForName();
+            String input = readUserInput();
+            if (!input.isEmpty()) {
+                playerName = input;
+                nameNotValid = false;
+            } else {
+                System.out.println("Name cannot be empty.");
+            }
+        }
+    }
+    private void enterNumberOfRoundToWin() {
+        boolean roundCountNotValid = true;
+        while (roundCountNotValid) {
+            gameMaster.askForRoundCount();
+            String input = readUserInput();
+            int roundCount;
+            try{
+                roundCount = Integer.parseInt(input);
+                if(roundCount>0){
+                    maxCount = roundCount;
+                    roundCountNotValid = false;
+                }
+            } catch (NumberFormatException ex) {
+                System.out.println("Wrong number. Number must be greater than zero integer.");
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@ public class GameMaster {
         System.out.print("Choose your champion by writing it`s name. Available champions: ");
         champions.stream().map(champion -> champion.getName()).forEach(name -> System.out.print(name + "  "));
         System.out.println("\nWrite \"help\" to show this message again.");
+        System.out.println("Write \"restart\" to reset the win/loose count and start again.");
         System.out.println("Write \"exit\" to quit.");
         System.out.println();
     }
@@ -60,11 +61,11 @@ public class GameMaster {
         sleepOneSecond();
     }
 
-    public void endGame(boolean result) {
+    public void endGame(boolean result, String name) {
         if (result) {
-            System.out.println("Congratulations! You have won the game!");
+            System.out.println("Congratulations " + name + "! You have won the game!");
         } else {
-            System.out.println("Bad luck... You have lost the game.");
+            System.out.println("Bad luck " + name + " ... You have lost the game.");
         }
     }
 
@@ -87,6 +88,14 @@ public class GameMaster {
         System.out.println("Do you want to play one more time? - hit YES if so. Anything else to quit.");
     }
 
+    public void askForName() {
+        System.out.println("Please enter your name.");
+    }
+
+    public void askForRoundCount(){
+        System.out.println("To how many wins we play?");
+    }
+
     private void sleep(int seconds) {
         try {
             TimeUnit.SECONDS.sleep(seconds);
@@ -104,5 +113,4 @@ public class GameMaster {
             //TODO exception handling
         }
     }
-
 }

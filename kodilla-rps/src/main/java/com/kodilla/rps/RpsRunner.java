@@ -4,7 +4,7 @@ public class RpsRunner {
 
     public static void main(String[] args) {
 
-        Game game = new Game(3);
+        Game game = new Game();
         game.play();
     }
 }
