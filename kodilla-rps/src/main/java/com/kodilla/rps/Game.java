@@ -178,7 +178,7 @@ public class Game {
         boolean nameNotValid = true;
         while (nameNotValid) {
             gameMaster.askForName();
-            String input = readUserInput();
+            String input = readUserInput().trim();
             if (!input.isEmpty()) {
                 playerName = input;
                 nameNotValid = false;
@@ -199,9 +199,11 @@ public class Game {
                 if (roundCount > 0) {
                     maxCount = roundCount;
                     roundCountNotValid = false;
+                } else {
+                    System.out.println("Number must be greater than zero");
                 }
             } catch (NumberFormatException ex) {
-                System.out.println("Wrong number. Number must be greater than zero integer.");
+                System.out.println("This was not an integer number");
             }
         }
     }
