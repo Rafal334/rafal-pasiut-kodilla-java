@@ -77,7 +77,7 @@ public class Game {
         String input;
         boolean roundFinished = false;
         Champion playerChampion, computerChampion;
-        int fightResult;
+        FightResult fightResult;
         while (!roundFinished) {
             gameMaster.chooseChampion();
             input = readUserInput();
@@ -88,9 +88,9 @@ public class Game {
                 gameMaster.computerChampionSelected(computerChampion);
                 fightResult = fight(playerChampion, computerChampion);
                 gameMaster.fightResult(fightResult, playerChampion, computerChampion);
-                if (fightResult == 1) {
+                if (fightResult == FightResult.WIN) {
                     wins++;
-                } else if (fightResult == 2) {
+                } else if (fightResult == FightResult.LOOSE) {
                     loses++;
                 }
                 roundFinished = true;
@@ -146,13 +146,13 @@ public class Game {
         return champions.get(random.nextInt(champions.size()));
     }
 
-    private int fight(Champion player, Champion computer) {
+    private FightResult fight(Champion player, Champion computer) {
         if (player == computer) {
-            return 0;   //tie
+            return FightResult.TIE;   //tie
         } else if (player.getWins().containsKey(computer.getName())) {
-            return 1;   //player wins
+            return FightResult.WIN;   //player wins
         } else {
-            return 2;   //computer wins
+            return FightResult.LOOSE;   //computer wins
         }
     }
 
@@ -161,7 +161,7 @@ public class Game {
     }
 
     private boolean confirmAction(String action) {
-        System.out.println("Do you really want to " + action + "?. Write yes or no.");
+        System.out.println("Do you really want to " + action + "? Write yes or no.");
         while (true) {
             String answer = readUserInput();
             if (answer.toLowerCase().equals("yes")) {

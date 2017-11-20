@@ -35,17 +35,17 @@ public class GameMaster {
         System.out.println("You chose: " + champion.getName());
     }
 
-    public void fightResult(int result, Champion player, Champion computer) {
+    public void fightResult(FightResult result, Champion player, Champion computer) {
         System.out.println();
         switch (result) {
-            case 0:
+            case TIE:
                 System.out.println("It`s a tie!");
                 break;
-            case 1:
+            case WIN:
                 System.out.println(player.getName() + " " + player.getWins().get(computer.getName()) + " " + computer.getName() + "!");
                 System.out.println("You win.");
                 break;
-            case 2:
+            case LOOSE:
                 System.out.println(computer.getName() + " " + computer.getWins().get(player.getName()) + " " + player.getName() + "!");
                 System.out.println("You loose.");
                 break;
