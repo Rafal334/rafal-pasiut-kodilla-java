@@ -4,6 +4,7 @@
 /kodilla-testing/out/
 /kodilla-stream/out/
 /kodilla-rps/out
+/kodilla-exception/out
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
