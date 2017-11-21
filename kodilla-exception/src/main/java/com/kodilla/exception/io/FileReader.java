@@ -8,20 +8,16 @@ import java.util.stream.Stream;
 
 public class FileReader {
 
-    public void readFile() {
+    public void readFile() throws FileReaderException {
         ClassLoader classLoader = getClass().getClassLoader();
-        try {
-            File file = new File(classLoader.getResource("file/names.txt").getFile());
+        File file = new File(classLoader.getResource("file/names.txt").getFile());
 
-            try (Stream<String> fileLines = Files.lines(Paths.get(file.getPath()))) {
-                fileLines.forEach(System.out::println);
-            } catch (IOException e) {
-                System.out.println("Wrong path" + e);
-            } finally {
-                System.out.println("I am here always");
-            }
-        } catch (NullPointerException e) {
-            System.out.println("Wrong path " + e);
+        try (Stream<String> fileLines = Files.lines(Paths.get(file.getPath()))) {
+            fileLines.forEach(System.out::println);
+        } catch (IOException e) {
+            throw new FileReaderException();
+        } finally {
+            System.out.println("I am here always");
         }
     }
 }
