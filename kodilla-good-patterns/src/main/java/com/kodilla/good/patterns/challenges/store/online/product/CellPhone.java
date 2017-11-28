@@ -10,6 +10,6 @@ public class CellPhone extends Product {
 
     @Override
     public String toString() {
-        return "CellPhone";
+        return "CellPhone - " + super.toString();
     }
 }
