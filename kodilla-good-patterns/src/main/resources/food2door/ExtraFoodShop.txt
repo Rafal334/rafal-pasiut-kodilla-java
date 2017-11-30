@@ -1,0 +1,3 @@
+Eggs;Fresh eggs;0.99;150
+Bread;Crispy bread;3.00;20
+Milk;Straight from cow - 1l bottle;1.99;30

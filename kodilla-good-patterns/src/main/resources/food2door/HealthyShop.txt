@@ -1,0 +1,3 @@
+Ginger;Natural ginger;3.50;30
+Honey;Flower honey - 0.5l;15.00;10
+Apple;Red tasty apples;1.00;100
