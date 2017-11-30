@@ -9,13 +9,12 @@ import com.kodilla.good.patterns.challenges.food2door.user.User;
 public class OrderRetreiver {
 
     public Order getSampleOrder(String supplierName) {
-
-        User user = new User("Jan","Kowalski","jkowalski@gmail.com");
+        User user = new User("Jan", "Kowalski", "jkowalski@gmail.com");
         ShoppingCart cart = new ShoppingCart();
         SupplierRepository supplierRepository = new SuppliersFileDatabase();
         Supplier supplier = supplierRepository.getSupplier(supplierName);
 
-        return new Order(user,cart.getSampleShoppingCart(),supplier);
+        return new Order(user, cart.getSampleShoppingCart(), supplier);
 
     }
 }

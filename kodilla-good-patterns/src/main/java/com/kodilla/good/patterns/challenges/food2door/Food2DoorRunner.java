@@ -20,6 +20,4 @@ public class Food2DoorRunner {
         validator.validateOrder(orderProcessDto);
 
     }
-
-
 }

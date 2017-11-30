@@ -51,7 +51,6 @@ public class SuppliersFileDatabase implements SupplierRepository {
     }
 
     private Product lineToProduct(String line) {
-
         StringTokenizer tokenizer = new StringTokenizer(line, DELIMITER);
         ArrayList<String> strings = new ArrayList<>();
 
