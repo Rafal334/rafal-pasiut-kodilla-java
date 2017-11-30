@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,7 +21,7 @@ public class SuppliersFileDatabase implements SupplierRepository {
 
     @Override
     public Supplier getSupplier(String name) {
-        HashSet<Product> products = new HashSet<>();
+        ArrayList<Product> products = new ArrayList<>();
         try {
             products = readProducts(name);
         } catch (IOException e) {
@@ -32,17 +31,22 @@ public class SuppliersFileDatabase implements SupplierRepository {
         try {
             return supplierCreator.constructClass(products);
         } catch (SupplierNotFoundException e) {
-            System.out.println("Supplier nor found");
+            System.out.println("Supplier not found");
             return null;
         }
     }
 
-    private HashSet<Product> readProducts(String supplierName) throws IOException {
+    private ArrayList<Product> readProducts(String supplierName) throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("food2door/" + supplierName + ".txt").getFile());
+        try {
+            File file = new File(classLoader.getResource("food2door/" + supplierName + ".txt").getFile());
 
-        try (Stream<String> fileLines = Files.lines(Paths.get(file.getPath()))) {
-            return fileLines.map(this::lineToProduct).collect(Collectors.toCollection(HashSet::new));
+            try (Stream<String> fileLines = Files.lines(Paths.get(file.getPath()))) {
+                return fileLines.map(this::lineToProduct).collect(Collectors.toCollection(ArrayList::new));
+            }
+        } catch (NullPointerException e) {
+            System.out.println("File for selected supplier not exists");
+            return new ArrayList<>();
         }
     }
 
