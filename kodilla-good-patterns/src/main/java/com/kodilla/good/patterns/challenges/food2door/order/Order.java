@@ -18,6 +18,10 @@ public class Order {
         this.supplier = supplier;
     }
 
+    public OrderProcessDto process(){
+        return supplier.process(this);
+    }
+
     public User getUser() {
         return user;
     }

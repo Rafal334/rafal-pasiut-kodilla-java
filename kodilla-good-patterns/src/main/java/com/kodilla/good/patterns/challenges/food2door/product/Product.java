@@ -44,7 +44,7 @@ public class Product {
 
         Product product = (Product) o;
 
-        return description.equals(product.description) && name.equals(product.name);
+        return name.equals(product.name);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class OrderProcessor {
 
     public OrderProcessDto processOrder() {
         if (order != null && order.getSupplier() != null) {
-            OrderProcessDto orderResult = order.getSupplier().process(order);
+            OrderProcessDto orderResult = order.process();
             if (orderResult.isOrderOK()) {
                 informationService.notifieUser(order);
                 repository.logOrder(order);
