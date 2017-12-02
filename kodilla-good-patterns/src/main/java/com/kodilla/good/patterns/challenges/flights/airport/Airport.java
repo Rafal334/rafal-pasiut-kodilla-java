@@ -10,8 +10,21 @@ public class Airport {
 
     @Override
     public String toString() {
-        return "Airport{" +
-                "airportName='" + airportName + '\'' +
-                '}';
+        return airportName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Airport airport = (Airport) o;
+
+        return airportName.equals(airport.airportName);
+    }
+
+    @Override
+    public int hashCode() {
+        return airportName.hashCode();
     }
 }

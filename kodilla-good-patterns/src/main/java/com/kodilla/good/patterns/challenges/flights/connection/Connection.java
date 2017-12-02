@@ -3,8 +3,6 @@ package com.kodilla.good.patterns.challenges.flights.connection;
 import com.kodilla.good.patterns.challenges.flights.airport.Airport;
 import com.kodilla.good.patterns.challenges.flights.connection.times.Times;
 
-import java.time.LocalTime;
-
 public class Connection {
 
     private Airport departureAirport;
@@ -19,10 +17,18 @@ public class Connection {
 
     @Override
     public String toString() {
-        return "Connection{" +
-                "departureAirport=" + departureAirport +
-                ", arrivalAirport=" + arrivalAirport +
-                ", flightTimes=" + flightTimes +
-                '}';
+        return departureAirport + "\t\t" + arrivalAirport + "\t\t" + flightTimes;
+    }
+
+    public Airport getDepartureAirport() {
+        return departureAirport;
+    }
+
+    public Airport getArrivalAirport() {
+        return arrivalAirport;
+    }
+
+    public Times getFlightTimes() {
+        return flightTimes;
     }
 }

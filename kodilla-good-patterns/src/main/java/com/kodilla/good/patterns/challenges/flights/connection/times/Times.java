@@ -14,9 +14,6 @@ public class Times {
 
     @Override
     public String toString() {
-        return "Times{" +
-                "timeOfDeparture=" + timeOfDeparture +
-                ", timeOfArrival=" + timeOfArrival +
-                '}';
+        return timeOfDeparture + "\t\t" + timeOfArrival;
     }
 }

@@ -18,6 +18,7 @@ public class FlightsFileRepository implements FlightsRepository {
 
     private static final String DELIM = ";";
     private static final String TIMES_DELIMITER = ",";
+    private static final String ARRIVAL_DEPARTURE_DELIMITER = "-";
 
     @Override
     public FlightsTimetable getFlightsTimetable() {
@@ -62,7 +63,7 @@ public class FlightsFileRepository implements FlightsRepository {
     private Times getTimes(String rawTime) {        //TODO errors in formating text file
 
         rawTime = rawTime.substring(1, rawTime.length() - 1);
-        String[] times = rawTime.split("-");
+        String[] times = rawTime.split(ARRIVAL_DEPARTURE_DELIMITER);
 
         return new Times(LocalTime.parse(times[0]), LocalTime.parse(times[1]));
 
