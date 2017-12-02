@@ -14,9 +14,5 @@ public class FlightSearchRunner {
         searchProcessor.searchFlightsFrom("Warszawa");
         searchProcessor.searchFlightsTo("Kraków");
         searchProcessor.searchFlightsFromTo("Rzeszów", "Wrocław");
-
-
     }
-
-
 }

@@ -24,7 +24,6 @@ public class FlightsTimetable {
     }
 
     private void fillArrivals(ArrayList<Connection> connections) {
-
         for (Connection connection : connections) {
             if (arrivals.containsKey(connection.getArrivalAirport())) {
                 arrivals.get(connection.getArrivalAirport()).add(connection);
@@ -37,7 +36,6 @@ public class FlightsTimetable {
     }
 
     private void fillDepartures(ArrayList<Connection> connections) {
-
         for (Connection connection : connections) {
             if (departures.containsKey(connection.getDepartureAirport())) {
                 departures.get(connection.getDepartureAirport()).add(connection);

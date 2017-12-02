@@ -6,7 +6,6 @@ import com.kodilla.good.patterns.challenges.flights.connection.Connection;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class FlightsSearcher implements Searcher {
@@ -35,7 +34,7 @@ public class FlightsSearcher implements Searcher {
     @Override
     public SearchResult searchFlightsFromTo(Airport departureAirport, Airport arrivalAirport) throws NoSuchAirport {
         boolean[] checks = {checkIfAirportExists(departureAirport), checkIfAirportExists(arrivalAirport)};
-        if (checks[0]&&checks[1]) {
+        if (checks[0] && checks[1]) {
             ArrayList<Connection> directConnection;
             ArrayList<CombinedConnection> combinedConnections;
 
@@ -47,11 +46,11 @@ public class FlightsSearcher implements Searcher {
 
             return new SearchResult(directConnection, combinedConnections, departureAirport, arrivalAirport);
         } else {
-            String message ="";
-            if(!checks[0]){
+            String message = "";
+            if (!checks[0]) {
                 message = message + "Airport: " + departureAirport + " not found.\n";
             }
-            if(!checks[1]){
+            if (!checks[1]) {
                 message = message + "Airport: " + arrivalAirport + " not found.\n";
             }
             throw new NoSuchAirport(message);

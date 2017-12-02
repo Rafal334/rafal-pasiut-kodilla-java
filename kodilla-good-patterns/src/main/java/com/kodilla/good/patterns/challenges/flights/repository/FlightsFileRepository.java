@@ -45,7 +45,6 @@ public class FlightsFileRepository implements FlightsRepository {
     }
 
     private ArrayList<Connection> createConnections(String rawConnectionString) {
-
         ArrayList<Connection> connections = new ArrayList<>();
         ArrayList<String> tokens = new ArrayList<>();
         StringTokenizer tokenizer = new StringTokenizer(rawConnectionString, DELIM);
@@ -62,8 +61,7 @@ public class FlightsFileRepository implements FlightsRepository {
         return connections;
     }
 
-    private Times getTimes(String rawTime) {        //TODO errors in formating text file
-
+    private Times getTimes(String rawTime) {
         rawTime = rawTime.substring(1, rawTime.length() - 1);
         String[] times = rawTime.split(ARRIVAL_DEPARTURE_DELIMITER);
 
