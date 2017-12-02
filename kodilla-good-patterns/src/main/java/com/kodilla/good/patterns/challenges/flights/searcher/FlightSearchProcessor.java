@@ -18,38 +18,49 @@ public class FlightSearchProcessor {
     }
 
     public void searchFlightsFrom(String airportName) {
-        loadTimetable();
-        try {
-            SearchResult results = searcher.searchAllFlightsFrom(new Airport(airportName));
-            presenter = new ConsoleSearchResultsPresenter();
-            presenter.showResults(results);
-        } catch (NoSuchAirport e) {
-            System.out.println(e.getMessage());
+        if(loadTimetable()) {
+            try {
+                SearchResult results = searcher.searchAllFlightsFrom(new Airport(airportName));
+                presenter = new ConsoleSearchResultsPresenter();
+                presenter.showResults(results);
+            } catch (NoSuchAirport e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
     public void searchFlightsTo(String airportName) {
-        try {
-            SearchResult results = searcher.searchAllFlightsTo(new Airport(airportName));
-            presenter = new ConsoleSearchResultsPresenter();
-            presenter.showResults(results);
-        } catch (NoSuchAirport e) {
-            System.out.println(e.getMessage());
+        if(loadTimetable()) {
+            try {
+                SearchResult results = searcher.searchAllFlightsTo(new Airport(airportName));
+                presenter = new ConsoleSearchResultsPresenter();
+                presenter.showResults(results);
+            } catch (NoSuchAirport e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
     public void searchFlightsFromTo(String departureAirportName, String arrivalAirportName) {
-        try {
-            SearchResult results = searcher.searchFlightsFromTo(new Airport(departureAirportName), new Airport(arrivalAirportName));
-            presenter = new ConsoleSearchResultsPresenter();
-            presenter.showResults(results);
-        } catch (NoSuchAirport e) {
-            System.out.println(e.getMessage());
+        if(loadTimetable()) {
+            try {
+                SearchResult results = searcher.searchFlightsFromTo(new Airport(departureAirportName), new Airport(arrivalAirportName));
+                presenter = new ConsoleSearchResultsPresenter();
+                presenter.showResults(results);
+            } catch (NoSuchAirport e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
-    private void loadTimetable() {
-        FlightsTimetable timetable = flightsRepository.getFlightsTimetable();
-        searcher.loadTimetable(timetable);
+    private boolean loadTimetable() {
+        try {
+            FlightsTimetable timetable = flightsRepository.getFlightsTimetable();
+            searcher.loadTimetable(timetable);
+            return true;
+        }catch(Exception e){
+            System.out.println("Error while loading timetable.");
+            return false;
+        }
     }
 }
