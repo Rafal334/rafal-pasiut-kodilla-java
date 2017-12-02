@@ -4,7 +4,11 @@ import com.kodilla.good.patterns.challenges.flights.airport.Airport;
 
 public interface Searcher {
 
-    SearchResult searchAllFlightsFrom(Airport airport);
-    SearchResult searchAllFlightsTo(Airport airport);
-    SearchResult searchFlightsFromTo(Airport departureAirport, Airport arrivalAirport);
+    SearchResult searchAllFlightsFrom(Airport airport) throws NoSuchAirport;
+
+    SearchResult searchAllFlightsTo(Airport airport) throws NoSuchAirport;
+
+    SearchResult searchFlightsFromTo(Airport departureAirport, Airport arrivalAirport) throws NoSuchAirport;
+
+    void loadTimetable(FlightsTimetable timetable);
 }

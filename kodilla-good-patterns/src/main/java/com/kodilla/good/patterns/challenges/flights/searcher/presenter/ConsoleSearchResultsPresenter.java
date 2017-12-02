@@ -7,24 +7,18 @@ import java.util.ArrayList;
 
 public class ConsoleSearchResultsPresenter implements SearchResultsPresenter {
 
-    private SearchResult results;
-
-    public ConsoleSearchResultsPresenter(SearchResult results) {
-        this.results = results;
-    }
-
     @Override
-    public void showResults() {
+    public void showResults(SearchResult results) {
         System.out.println("\n\n");
         printSeparator();
-        printSearchFlightQuery();
-        showDirectResults();
-        showCombinedResults();
+        printSearchFlightQuery(results);
+        showDirectResults(results);
+        showCombinedResults(results);
         printSeparator();
         System.out.println("\n\n");
     }
 
-    private void showDirectResults() {
+    private void showDirectResults(SearchResult results) {
         if (!results.getDirectConnections().isEmpty()) {
             System.out.println("DIRECT FLIGHTS");
             printHeader();
@@ -34,7 +28,7 @@ public class ConsoleSearchResultsPresenter implements SearchResultsPresenter {
         }
     }
 
-    private void showCombinedResults() {
+    private void showCombinedResults(SearchResult results) {
         if (!results.getCombinedConnections().isEmpty()) {
             System.out.println("COMBINED FLIGHTS");
             results.getCombinedConnections().stream().map(combinedConnection -> combinedConnection.getTransfer()).forEach(this::printCombinedResult);
@@ -60,7 +54,7 @@ public class ConsoleSearchResultsPresenter implements SearchResultsPresenter {
         System.out.println("Departure\t\tArrival\t\tToD\t\tToA");
     }
 
-    private void printSearchFlightQuery() {
+    private void printSearchFlightQuery(SearchResult results) {
         if (results.getArrivalAirport().toString().isEmpty()) {
             System.out.println("ALL FLIGHTS FROM: " + results.getDepartureAirport());
         } else if (results.getDepartureAirport().toString().isEmpty()) {

@@ -31,7 +31,7 @@ public class FlightsTimetable {
             } else {
                 ArrayList<Connection> newConnectionList = new ArrayList<>();
                 newConnectionList.add(connection);
-                arrivals.put(connection.getArrivalAirport(),newConnectionList);
+                arrivals.put(connection.getArrivalAirport(), newConnectionList);
             }
         }
     }

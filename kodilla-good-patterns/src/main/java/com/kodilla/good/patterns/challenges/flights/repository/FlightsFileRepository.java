@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -51,7 +53,7 @@ public class FlightsFileRepository implements FlightsRepository {
         while (tokenizer.hasMoreTokens()) {
             tokens.add(tokenizer.nextToken());
         }
-        if(tokens.size()>2) {
+        if (tokens.size() > 2) {
             tokenizer = new StringTokenizer(tokens.get(2), TIMES_DELIMITER);
             while (tokenizer.hasMoreTokens()) {
                 connections.add(new Connection(new Airport(tokens.get(0)), new Airport(tokens.get(1)), getTimes(tokenizer.nextToken())));
