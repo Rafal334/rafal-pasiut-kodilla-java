@@ -3,10 +3,10 @@ package com.kodilla.good.patterns.challenges.flights;
 import com.kodilla.good.patterns.challenges.flights.airport.Airport;
 import com.kodilla.good.patterns.challenges.flights.repository.FlightsFileRepository;
 import com.kodilla.good.patterns.challenges.flights.repository.FlightsRepository;
-import com.kodilla.good.patterns.challenges.flights.searcher.FlightSearcher;
-import com.kodilla.good.patterns.challenges.flights.searcher.FlightsConsoleSearcher;
+import com.kodilla.good.patterns.challenges.flights.searcher.FlightsSearcher;
 import com.kodilla.good.patterns.challenges.flights.searcher.FlightsTimetable;
 import com.kodilla.good.patterns.challenges.flights.searcher.SearchResult;
+import com.kodilla.good.patterns.challenges.flights.searcher.Searcher;
 import com.kodilla.good.patterns.challenges.flights.searcher.presenter.ConsoleSearchResultsPresenter;
 import com.kodilla.good.patterns.challenges.flights.searcher.presenter.SearchResultsPresenter;
 
@@ -19,15 +19,19 @@ public class FlightSearchRunner {
 
         SearchResultsPresenter presenter;
         SearchResult results;
-        FlightSearcher searcher = new FlightsConsoleSearcher(timetable);
+        Searcher searcher = new FlightsSearcher(timetable);
 
         results = searcher.searchAllFlightsFrom(new Airport("Warszawa"));
         presenter = new ConsoleSearchResultsPresenter(results);
-        presenter.showResultsAllFrom();
+        presenter.showResults();
 
-        results = searcher.searchAllFlightsTo(new Airport("Rzeszów"));
+        results = searcher.searchAllFlightsTo(new Airport("Kraków"));
         presenter = new ConsoleSearchResultsPresenter(results);
-        presenter.showResultsAllTo();
+        presenter.showResults();
+
+        results = searcher.searchFlightsFromTo(new Airport("Rzeszów"), new Airport("Wrocław"));
+        presenter = new ConsoleSearchResultsPresenter(results);
+        presenter.showResults();
     }
 
 

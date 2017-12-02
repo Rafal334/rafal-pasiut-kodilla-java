@@ -16,4 +16,12 @@ public class Times {
     public String toString() {
         return timeOfDeparture + "\t\t" + timeOfArrival;
     }
+
+    public LocalTime getTimeOfDeparture() {
+        return timeOfDeparture;
+    }
+
+    public LocalTime getTimeOfArrival() {
+        return timeOfArrival;
+    }
 }

@@ -9,4 +9,8 @@ public class CombinedConnection {
     public CombinedConnection(ArrayList<Connection> transfer) {
         this.transfer = transfer;
     }
+
+    public ArrayList<Connection> getTransfer() {
+        return transfer;
+    }
 }
