@@ -2,6 +2,7 @@ package com.kodilla.good.patterns.challenges.flights.searcher;
 
 import com.kodilla.good.patterns.challenges.flights.airport.Airport;
 import com.kodilla.good.patterns.challenges.flights.repository.FlightsRepository;
+import com.kodilla.good.patterns.challenges.flights.repository.TimetableLoadException;
 import com.kodilla.good.patterns.challenges.flights.searcher.presenter.ConsoleSearchResultsPresenter;
 import com.kodilla.good.patterns.challenges.flights.searcher.presenter.SearchResultsPresenter;
 
@@ -58,7 +59,7 @@ public class FlightSearchProcessor {
             FlightsTimetable timetable = flightsRepository.getFlightsTimetable();
             searcher.loadTimetable(timetable);
             return true;
-        }catch(Exception e){
+        }catch(TimetableLoadException e){
             System.out.println("Error while loading timetable.");
             return false;
         }

@@ -4,5 +4,5 @@ import com.kodilla.good.patterns.challenges.flights.searcher.FlightsTimetable;
 
 public interface FlightsRepository {
 
-    FlightsTimetable getFlightsTimetable();
+    FlightsTimetable getFlightsTimetable() throws TimetableLoadException;
 }

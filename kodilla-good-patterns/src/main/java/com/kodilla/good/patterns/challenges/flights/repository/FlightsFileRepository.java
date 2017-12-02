@@ -23,7 +23,7 @@ public class FlightsFileRepository implements FlightsRepository {
     private static final String ARRIVAL_DEPARTURE_DELIMITER = "-";
 
     @Override
-    public FlightsTimetable getFlightsTimetable() {
+    public FlightsTimetable getFlightsTimetable() throws TimetableLoadException {
         try {
             Stream<String> lines = openFile();
             ArrayList<Connection> connections = lines
@@ -31,10 +31,12 @@ public class FlightsFileRepository implements FlightsRepository {
                     .flatMap(Collection::stream)
                     .collect(Collectors.toCollection(ArrayList::new));
             return new FlightsTimetable(connections);
-        } catch (IOException e) {
-            System.out.println("File not found");
+        } catch (IOException | NullPointerException e) {
+            System.out.println("Timetable file not found.");
+            throw new TimetableLoadException();
+        } catch (Exception e) {
+            throw  new TimetableLoadException();
         }
-        return null;
     }
 
     private Stream<String> openFile() throws IOException {
