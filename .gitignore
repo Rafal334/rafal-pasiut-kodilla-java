@@ -6,6 +6,7 @@
 /kodilla-rps/out
 /kodilla-exception/out
 /kodilla-good-patterns/out
+/kodilla-spring-intro/out
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
