@@ -1,5 +1,6 @@
 package com.kodilla.spring;
 
+import com.kodilla.spring.reader.ReaderConfig;
 import com.kodilla.spring.shape.Shape;
 import org.junit.Assert;
 import org.junit.Test;
@@ -60,5 +61,6 @@ public class SpringRunnerTestSuite {
         //Then
         System.out.println("Choosen shape says: " + name);
     }
+
 
 }
