@@ -23,8 +23,8 @@ public class LoggerTestSuite {
         String logMessage = "Sample log";
         //When
         IntStream.range(0, 10).
-                forEach(i -> Logger.getInstance().log(logMessage));
+                forEach(i -> Logger.getInstance().log(logMessage + i));
         //Then
-        Assert.assertEquals(logMessage, Logger.getInstance().getLastLog());
+        Assert.assertEquals(logMessage + "9", Logger.getInstance().getLastLog());
     }
 }
