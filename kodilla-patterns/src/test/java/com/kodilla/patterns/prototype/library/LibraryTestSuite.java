@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 public class LibraryTestSuite {
 
     @Test
-    public void testLibrary() {
+    public void testGetBooks() {
         //Given
         Library library = new Library("Library");
         IntStream.range(0, 10)
