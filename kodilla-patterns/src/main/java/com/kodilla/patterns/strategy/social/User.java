@@ -14,6 +14,8 @@ public class User {
     }
 
     public void setPublisherService(SocialPublisher publisher) {
-        this.publisher = publisher;
+        if (publisher != null) {
+            this.publisher = publisher;
+        }
     }
 }
