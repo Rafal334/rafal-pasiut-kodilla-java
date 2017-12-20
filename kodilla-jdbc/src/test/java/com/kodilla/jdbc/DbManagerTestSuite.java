@@ -48,12 +48,12 @@ public class DbManagerTestSuite {
 
         //When
         String sqlQuery =
-                "select U.FIRSTNAME, U.LASTNAME" +
-                        " from USERS U, POSTS P" +
-                        " where U.ID = P.USER_ID" +
-                        " group by U.LASTNAME, U.FIRSTNAME" +
-                        " having count(*) >= 2" +
-                        " order by U.LASTNAME, U.FIRSTNAME;";
+                "select U.FIRSTNAME, U.LASTNAME " +
+                        "from USERS U, POSTS P " +
+                        "where U.ID = P.USER_ID " +
+                        "group by U.LASTNAME, U.FIRSTNAME " +
+                        "having count(*) >= 2 " +
+                        "order by U.LASTNAME, U.FIRSTNAME;";
         Statement statement = dbManager.getConnection().createStatement();
         ResultSet result = statement.executeQuery(sqlQuery);
 
@@ -63,9 +63,6 @@ public class DbManagerTestSuite {
             System.out.println("Name: " + result.getString(1) + "\tSurname: " + result.getString(2));
             resultsCount++;
         }
-
         Assert.assertEquals(2, resultsCount);
-
-
     }
 }
