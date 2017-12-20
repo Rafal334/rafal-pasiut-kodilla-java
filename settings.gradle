@@ -7,4 +7,5 @@ include 'kodilla-good-patterns'
 include 'kodilla-spring-intro'
 include 'com.kodilla.patterns.singleton'
 include 'kodilla-patterns'
+include 'kodilla-jdbc'
 
