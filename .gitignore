@@ -10,6 +10,7 @@
 /kodilla-spring/out
 /kodilla-patterns/out
 /kodilla-jdbc/out
+/kodilla-sudoku/out
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
