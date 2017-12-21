@@ -10,41 +10,45 @@ public class GameProcessor {
 
     private Scanner scanner = new Scanner(System.in);
     private String line;
+    private boolean end = false;
     private SudokuCreator sudokuCreator = new SudokuCreator();
-    private SudokuBoard sudokuBoard;
+    private SudokuBoard sudokuBoard = new SudokuBoard();
 
     public void run() {
-        boolean end = false;
         printWelcomeMessage();
         printHelpMessage();
         while (!end) {
             System.out.println("Please insert new numbers, or other command");
             line = scanner.nextLine();
             try {
-                switch (parseLine()) {
-                    case SUDOKU:
-                        System.out.println("Yet unhandled command");
-                        break;
-                    case HELP:
-                        printHelpMessage();
-                        break;
-                    case RESTART:
-                        System.out.println("Yet unhandled command");
-                        break;
-                    case SHOW:
-                        System.out.println(sudokuBoard);
-                        break;
-                    case EXIT:
-                        end = true;
-                }
+                takeAction();
             } catch (Exception e) {
                 try {
                     sudokuBoard = sudokuCreator.prepareSudokuDraft(line);
                     System.out.println(sudokuBoard);
-                } catch(WrogInputException exception){
+                } catch (WrogInputException exception) {
                     System.out.println("Bad command. Type \"help\" for hints");
                 }
             }
+        }
+    }
+
+    private void takeAction() {
+        switch (parseLine()) {
+            case SUDOKU:
+                System.out.println("Yet unhandled command");
+                break;
+            case HELP:
+                printHelpMessage();
+                break;
+            case RESTART:
+                clearBoardAndCreator();
+                break;
+            case SHOW:
+                System.out.println(sudokuBoard);
+                break;
+            case EXIT:
+                end = true;
         }
     }
 
@@ -54,8 +58,13 @@ public class GameProcessor {
                 "help - show this message again\n" +
                 "sudoku - solve sudoku\n" +
                 "restart - clear everything and start from scratch\n" +
-                "show - print current board\n"+
+                "show - print current board\n" +
                 "exit - quit application\n");
+    }
+
+    private void clearBoardAndCreator() {
+        sudokuCreator = new SudokuCreator();
+        sudokuBoard = new SudokuBoard();
     }
 
     private void printWelcomeMessage() {
