@@ -4,5 +4,5 @@ import com.kodilla.sudoku.board.SudokuBoard;
 
 public interface SudokuSolver {
 
-    SudokuBoard solve() throws NoSolutionException;
+    SudokuBoard solve(SudokuBoard sudokuToSolve) throws NoSolutionException, CloneNotSupportedException;
 }

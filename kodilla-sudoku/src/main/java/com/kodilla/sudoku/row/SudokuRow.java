@@ -25,6 +25,10 @@ public class SudokuRow {
         currentCell.setValue(cell.getValue());
     }
 
+    public List<SudokuCell> getCells() {
+        return cells;
+    }
+
     @Override
     public String toString() {
 
