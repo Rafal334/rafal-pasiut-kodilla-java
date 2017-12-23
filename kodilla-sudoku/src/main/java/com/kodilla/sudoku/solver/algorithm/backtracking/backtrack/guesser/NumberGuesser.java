@@ -9,15 +9,7 @@ import java.util.List;
 
 public class NumberGuesser {
 
-    private SudokuBoard sudoku;
-    private List<SudokuBoard> backtrackList;
-
-    public NumberGuesser(SudokuBoard sudoku, List<SudokuBoard> backtrackList) {
-        this.sudoku = sudoku;
-        this.backtrackList = backtrackList;
-    }
-
-    public void guessNumber() throws CloneNotSupportedException {
+    public void guessNumber(SudokuBoard sudoku, List<SudokuBoard> backtrackList) throws CloneNotSupportedException {
         boolean finished = false;
         Iterator<SudokuRow> rowIterator = sudoku.getRows().iterator();
         SudokuRow row;

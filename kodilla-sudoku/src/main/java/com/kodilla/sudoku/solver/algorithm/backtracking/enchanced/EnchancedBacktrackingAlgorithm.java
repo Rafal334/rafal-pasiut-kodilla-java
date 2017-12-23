@@ -7,6 +7,7 @@ import com.kodilla.sudoku.solver.BadNumberException;
 import com.kodilla.sudoku.solver.NoSolutionException;
 import com.kodilla.sudoku.solver.SudokuSolver;
 import com.kodilla.sudoku.solver.SudokuUpdater;
+import com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.Backtracker;
 import com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.guesser.NumberGuesser;
 
 import java.util.ArrayList;
@@ -15,11 +16,11 @@ import java.util.List;
 
 public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
 
-    private List<SudokuBoard> backtrackList;
+    private Backtracker backtracker;
     private SudokuBoard sudoku;
 
     public EnchancedBacktrackingAlgorithm() {
-        this.backtrackList = new ArrayList<>();
+        backtracker = new Backtracker();
     }
 
     @Override
@@ -37,33 +38,17 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
                         System.out.println("--NO CHANGE--");
                     }
                 } catch (BadNumberException e) {
-                    checkBactrackAndRestore();
+                    sudoku = backtracker.checkBactrackAndRestore();
                     sudokuChanged = true;
                 }
             } else {
-                NumberGuesser numberGuesser = new NumberGuesser(sudoku, backtrackList);
-                numberGuesser.guessNumber();
+                backtracker.guessNumber(sudoku);
                 System.out.println(sudoku);
                 System.out.println("GUESS");
                 sudokuChanged = true;
             }
         }
         return sudoku;
-    }
-
-    private void checkBactrackAndRestore() throws NoSolutionException {
-        if (backtrackList.isEmpty()) {
-            throw new NoSolutionException();
-        } else {
-            restoreSudokuFromBacktrack();
-            System.out.println(sudoku);
-            System.out.println("BACKTRACK");
-        }
-    }
-
-    private void restoreSudokuFromBacktrack() {
-        sudoku = backtrackList.get(backtrackList.size() - 1);
-        backtrackList.remove(backtrackList.size() - 1);
     }
 
     private boolean iterateThrougAllCells(SudokuUpdater updater, boolean breakOnChange) throws BadNumberException {
