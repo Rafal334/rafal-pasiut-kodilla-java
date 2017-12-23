@@ -29,7 +29,7 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
             if (sudokuChanged) {
                 try {
                     sudokuChanged = iterateThrougAllCells(this::checkNumberForRowColumnSectionOccurence, false);
-                    if(!sudokuChanged) {
+                    if (!sudokuChanged) {
                         sudokuChanged = iterateThrougAllCells(this::canNumberBePlacedInRowColumnSection, true);
                     }
                     if (!sudokuChanged) {
@@ -47,7 +47,7 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
                     }
                 }
             } else {
-                NumberGuesser numberGuesser = new NumberGuesser(sudoku,backtrackList);
+                NumberGuesser numberGuesser = new NumberGuesser(sudoku, backtrackList);
                 numberGuesser.guessNumber();
                 System.out.println(sudoku);
                 System.out.println("GUESS");
@@ -76,9 +76,9 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
                     numberIterator = cell.getAvailableNumbers().iterator();
                     while (numberIterator.hasNext()) {
                         number = numberIterator.next();
-                        updated = updater.updateSudoku(cell,number);
-                        removeNumberIfUpdated(updated,cell,numberIterator);
-                        if(updated && breakOnChange){
+                        updated = updater.updateSudoku(cell, number);
+                        removeNumberIfUpdated(updated, cell, numberIterator);
+                        if (updated && breakOnChange) {
                             return true;
                         }
                         if (!sudokuChanged) {
@@ -102,7 +102,8 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
 
     private boolean checkNumberForRowColumnSectionOccurence(SudokuCell cell, Integer number) {
         ValueOccurenceChecker valueOccurenceChecker = new ValueOccurenceChecker(sudoku);
-        if (valueOccurenceChecker.isNumberOKForCell(cell, number)) {
+        boolean isNumberOK = valueOccurenceChecker.isNumberOKForCell(cell, number);
+        if (isNumberOK) {
             if (cell.isOnlyOneSolution()) {
                 cell.setSolution();
                 System.out.println(sudoku);
@@ -116,47 +117,13 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
     }
 
     private boolean canNumberBePlacedInRowColumnSection(SudokuCell cell, Integer number) {
-        boolean[] checks = {!canBePlacedInRow(cell, number), !canBePlacedInColumn(cell, number), !canBePlacedInSection(cell, number)};
-        if (checks[0] || checks[1] || checks[2]) {
+        EliminationChecker eliminationChecker = new EliminationChecker(sudoku);
+        boolean isNumberOK = eliminationChecker.isNumberOKByElimination(cell, number);
+        if (isNumberOK) {
             cell.setValue(number);
             System.out.println(sudoku);
             System.out.println("SET BY ELIMINATION");
             return true;
-        }
-        return false;
-    }
-
-    private boolean canBePlacedInRow(SudokuCell cell, int number) {
-        return sudoku.getRows().get(cell.getRowNumber() - 1).getCells().stream()
-                .anyMatch(rowCell -> ((rowCell.differentCellsByPosition(cell))) && (rowCell.isNumberInAvailableNumbers(number)) && rowCell.isEmpty());
-    }
-
-    private boolean canBePlacedInColumn(SudokuCell cell, int number) {
-        SudokuCell currentCell;
-        for (int i = 0; i < SudokuBoard.SUDOKU_SIZE; i++) {
-            currentCell = sudoku.getRows().get(i).getCells().get(cell.getColumnNumber() - 1);
-            if ((currentCell.isNumberInAvailableNumbers(number) && currentCell.differentCellsByPosition(cell)) && currentCell.isEmpty()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean canBePlacedInSection(SudokuCell cell, int number) {
-        int currentRow = ((cell.getRowNumber() - 1) / SudokuBoard.SECTION_ROWS) * SudokuBoard.SECTION_ROWS;
-        int currentColumn = ((cell.getColumnNumber() - 1) / SudokuBoard.SECTION_COLUMNS) * SudokuBoard.SECTION_COLUMNS;
-        int finishRow = currentRow + SudokuBoard.SECTION_ROWS;
-        int finishColumn = currentColumn + SudokuBoard.SECTION_COLUMNS;
-        SudokuCell currentCell;
-
-        for (; currentRow < finishRow; currentRow++) {
-            for (; currentColumn < finishColumn; currentColumn++) {
-                currentCell = sudoku.getRows().get(currentRow).getCells().get(currentColumn);
-                if ((currentCell.isNumberInAvailableNumbers(number) && currentCell.differentCellsByPosition(cell)) && currentCell.isEmpty()) {
-                    return true;
-                }
-            }
-            currentColumn = ((cell.getColumnNumber() - 1) / SudokuBoard.SECTION_COLUMNS) * SudokuBoard.SECTION_COLUMNS;
         }
         return false;
     }
