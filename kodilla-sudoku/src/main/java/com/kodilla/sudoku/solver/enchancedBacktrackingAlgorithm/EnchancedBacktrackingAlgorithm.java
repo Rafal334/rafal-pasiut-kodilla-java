@@ -28,9 +28,9 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
         while (!sudoku.areAllCellsFilled()) {
             if (sudokuChanged) {
                 try {
-                    sudokuChanged = iterateThrougAllCells(this::checkNumberForRowColumnSectionOccurence, false);
+                    sudokuChanged = iterateThrougAllCells(this::checkNumberSimple, false);
                     if (!sudokuChanged) {
-                        sudokuChanged = iterateThrougAllCells(this::canNumberBePlacedInRowColumnSection, true);
+                        sudokuChanged = iterateThrougAllCells(this::checkNumberByElimination, true);
                     }
                     if (!sudokuChanged) {
                         System.out.println("--NO CHANGE--");
@@ -100,7 +100,7 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
         }
     }
 
-    private boolean checkNumberForRowColumnSectionOccurence(SudokuCell cell, Integer number) {
+    private boolean checkNumberSimple(SudokuCell cell, Integer number) {
         ValueOccurenceChecker valueOccurenceChecker = new ValueOccurenceChecker(sudoku);
         boolean isNumberOK = valueOccurenceChecker.isNumberOKForCell(cell, number);
         if (isNumberOK) {
@@ -116,7 +116,7 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
         }
     }
 
-    private boolean canNumberBePlacedInRowColumnSection(SudokuCell cell, Integer number) {
+    private boolean checkNumberByElimination(SudokuCell cell, Integer number) {
         EliminationChecker eliminationChecker = new EliminationChecker(sudoku);
         boolean isNumberOK = eliminationChecker.isNumberOKByElimination(cell, number);
         if (isNumberOK) {
