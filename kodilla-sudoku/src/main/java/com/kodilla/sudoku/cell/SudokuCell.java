@@ -20,7 +20,7 @@ public class SudokuCell {
     public SudokuCell(int rowNumber, int columnNumber) {
         value = EMPTY_CELL_VALUE;
         availableNumbers = IntStream
-                .range(1, SudokuBoard.SUDOKU_SIZE)
+                .range(1, SudokuBoard.SUDOKU_SIZE+1)
                 .mapToObj(i -> (Integer) i)
                 .collect(Collectors.toCollection(HashSet::new));
         this.rowNumber = rowNumber;

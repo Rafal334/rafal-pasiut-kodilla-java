@@ -49,6 +49,7 @@ public class GameProcessor {
                     System.out.println("Critical ERROR. Clone not support exception.");
                 }catch(Exception e){
                     System.out.println("Unhandled exception.");
+                    e.printStackTrace();
                 }
                 break;
             case HELP:

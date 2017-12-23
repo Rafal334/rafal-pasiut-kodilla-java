@@ -5,6 +5,7 @@ import com.kodilla.sudoku.cell.SudokuCell;
 import com.kodilla.sudoku.row.SudokuRow;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
@@ -24,32 +25,60 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
             if (sudokuChanged) {
                 try {
                     sudokuChanged = iterateThrougAllCells(this::checkNumberForRowColumnSectionOccurence);
-                    sudokuChanged = iterateThrougAllCells(this::canNumberBePlacedInRowColumnSection) || sudokuChanged;
+                    //sudokuChanged = iterateThrougAllCells(this::canNumberBePlacedInRowColumnSection) || sudokuChanged;
+                    if (sudokuChanged) {
+                        System.out.println("--NO CHANGE--");
+                    }
                 } catch (BadNumberException e) {
                     if (backtrackList.isEmpty()) {
                         throw new NoSolutionException();
                     } else {
                         sudoku = backtrackList.get(backtrackList.size() - 1);
                         backtrackList.remove(backtrackList.size() - 1);
+                        System.out.println(sudoku);
+                        System.out.println("BACKTRACK");
+                        sudokuChanged = true;
                     }
                 }
             } else {
-                backtrackList.add(sudoku.deepCopy());
                 guessNumber();
+                System.out.println(sudoku);
+                System.out.println("GUESS");
                 sudokuChanged = true;
             }
-
         }
         return sudoku;
     }
 
     private boolean iterateThrougAllCells(SudokuUpdater updater) throws BadNumberException {
         boolean sudokuChanged = false;
-        for (SudokuRow row : sudoku.getRows()) {
-            for (SudokuCell cell : row.getCells()) {
+        boolean update;
+        Iterator<SudokuRow> rowIterator = sudoku.getRows().iterator();
+        SudokuRow row;
+        Iterator<SudokuCell> cellIterator;
+        SudokuCell cell;
+        Iterator<Integer> numberIterator;
+        Integer number;
+
+        while (rowIterator.hasNext()) {
+            row = rowIterator.next();
+            cellIterator = row.getCells().iterator();
+            while (cellIterator.hasNext()) {
+                cell = cellIterator.next();
                 if (cell.isEmpty()) {
-                    for (Integer number : cell.getAvailableNumbers()) {
-                        sudokuChanged = updater.updateSudoku(cell, number);
+                    numberIterator = cell.getAvailableNumbers().iterator();
+                    while (numberIterator.hasNext()) {
+                        number = numberIterator.next();
+                        update = updater.updateSudoku(cell, number);
+                        if (update) {
+                            numberIterator.remove();
+                            if (cell.getAvailableNumbers().isEmpty() && cell.isEmpty()) {
+                                throw new BadNumberException();
+                            }
+                        }
+                        if (!sudokuChanged) {
+                            sudokuChanged = update;
+                        }
                     }
                 }
             }
@@ -57,24 +86,23 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
         return sudokuChanged;
     }
 
-    private boolean checkNumberForRowColumnSectionOccurence(SudokuCell cell, Integer number) throws BadNumberException {
+    private boolean checkNumberForRowColumnSectionOccurence(SudokuCell cell, Integer number) {
         if (isNumberOKForCell(cell, number)) {
             if (cell.isOnlyOneSolution()) {
                 cell.setSolution();
+                System.out.println(sudoku);
+                System.out.println("SET");
                 return true;
             }
-        } else {
-            cell.removeNumberFromAvailableNumbers(number);
-            if (cell.getAvailableNumbers().isEmpty()) {
-                throw new BadNumberException();
-            }
             return false;
+        } else {
+            return true;
         }
-        return false;
     }
 
     private boolean canNumberBePlacedInRowColumnSection(SudokuCell cell, Integer number) {
-        if (!canBePlacedInRow(cell, number) && !canBePlacedInColumn(cell, number) && !canBePlacedInSection(cell, number)) {
+        boolean[] checks = {!canBePlacedInRow(cell, number), !canBePlacedInColumn(cell, number), !canBePlacedInSection(cell, number)};
+        if (checks[0] && checks[1] && checks[2]) {
             cell.setValue(number);
             return true;
         }
@@ -82,11 +110,8 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
     }
 
     private boolean isNumberOKForCell(SudokuCell cell, int number) {
-        if (isNumberInRow(cell, number) || isNumberInColumn(cell, number) || isNumberInSection(cell, number)) {
-            return false;
-        } else {
-            return true;
-        }
+        boolean[] checks = {!isNumberInRow(cell, number), !isNumberInColumn(cell, number), !isNumberInSection(cell, number)};
+        return checks[0] && checks[1] && checks[2];
     }
 
     private boolean isNumberInRow(SudokuCell cell, int number) {
@@ -98,7 +123,7 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
         SudokuCell currentCell;
         for (int i = 0; i < SudokuBoard.SUDOKU_SIZE; i++) {
             currentCell = sudoku.getRows().get(i).getCells().get(cell.getColumnNumber() - 1);
-            if (currentCell.getValue().equals(number) && !(currentCell.getColumnNumber().equals(cell.getColumnNumber()))) {
+            if (currentCell.getValue().equals(number) && !(currentCell.getRowNumber().equals(cell.getRowNumber()))) {
                 return true;
             }
         }
@@ -106,8 +131,8 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
     }
 
     private boolean isNumberInSection(SudokuCell cell, int number) {
-        int currentRow = (cell.getRowNumber() - 1) / SudokuBoard.SECTION_ROWS;
-        int currentColumn = (cell.getColumnNumber() - 1) / SudokuBoard.SECTION_COLUMNS;
+        int currentRow = ((cell.getRowNumber() - 1) / SudokuBoard.SECTION_ROWS) * SudokuBoard.SECTION_ROWS;
+        int currentColumn = ((cell.getColumnNumber() - 1) / SudokuBoard.SECTION_COLUMNS) * SudokuBoard.SECTION_COLUMNS;
         int finishRow = currentRow + SudokuBoard.SECTION_ROWS;
         int finishColumn = currentColumn + SudokuBoard.SECTION_COLUMNS;
         SudokuCell currentCell;
@@ -119,6 +144,7 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
                     return true;
                 }
             }
+            currentColumn = ((cell.getColumnNumber() - 1) / SudokuBoard.SECTION_COLUMNS) * SudokuBoard.SECTION_COLUMNS;
         }
         return false;
     }
@@ -132,7 +158,7 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
         SudokuCell currentCell;
         for (int i = 0; i < SudokuBoard.SUDOKU_SIZE; i++) {
             currentCell = sudoku.getRows().get(i).getCells().get(cell.getColumnNumber() - 1);
-            if (currentCell.isNumberInAvailableNumbers(number) && !currentCell.getColumnNumber().equals(cell.getColumnNumber())) {
+            if (currentCell.isNumberInAvailableNumbers(number) && !currentCell.getRowNumber().equals(cell.getRowNumber())) {
                 return true;
             }
         }
@@ -153,18 +179,38 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
                     return true;
                 }
             }
+            currentColumn = (cell.getColumnNumber() - 1) / SudokuBoard.SECTION_COLUMNS;
         }
         return false;
     }
 
-    private void guessNumber() {
+    private void guessNumber() throws CloneNotSupportedException {
         boolean finished = false;
-        for (SudokuRow row : sudoku.getRows()) {
-            for (SudokuCell cell : row.getCells()) {
+        Iterator<SudokuRow> rowIterator = sudoku.getRows().iterator();
+        SudokuRow row;
+        Iterator<SudokuCell> cellIterator;
+        SudokuCell cell;
+        Integer value;
+        while (rowIterator.hasNext()) {
+            row = rowIterator.next();
+            cellIterator = row.getCells().iterator();
+            while (cellIterator.hasNext()) {
+                cell = cellIterator.next();
                 if (cell.isEmpty()) {
-                    cell.setValue(cell.getAvailableNumbers().iterator().next());
-                    cell.removeNumberFromAvailableNumbers(cell.getAvailableNumbers().iterator().next());
+                    try {
+                        value = cell.getAvailableNumbers().iterator().next();
+                        cell.removeNumberFromAvailableNumbers(value);
+                        backtrackList.add(sudoku.deepCopy());
+                        cell.setValue(value);
+                    } catch (Exception e) {
+                        System.out.println("here");
+                    }
+                    finished = true;
+                    break;
                 }
+            }
+            if (finished) {
+                break;
             }
         }
     }
