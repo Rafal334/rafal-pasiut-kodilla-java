@@ -3,7 +3,7 @@ package com.kodilla.sudoku.processor;
 import com.kodilla.sudoku.board.SudokuBoard;
 import com.kodilla.sudoku.creator.SudokuCreator;
 import com.kodilla.sudoku.creator.WrogInputException;
-import com.kodilla.sudoku.solver.EnchancedBacktrackingAlgorithm;
+import com.kodilla.sudoku.solver.enchancedBacktrackingAlgorithm.EnchancedBacktrackingAlgorithm;
 import com.kodilla.sudoku.solver.NoSolutionException;
 import com.kodilla.sudoku.solver.SudokuSolver;
 
@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class GameProcessor {
 
     public static final String DEBUG_SUDOKU = "1,1,8,2,3,3,2,4,6,3,2,7,3,5,9,3,7,2,4,2,5,4,6,7,5,5,4,5,6,5,5,7,7,6,4,1,6,8,3,7,3,1,7,8,6,7,9,8,8,3,8,8,4,5,8,8,1,9,2,9,9,7,4";
+    public static final String DEBUG_SUDOKU_2 = "2,5,2,,9,3,2,1,1,8,2,3,3,2,4,6,3,2,7,3,5,9,3,7,2,4,2,5,4,6,7,5,5,4,5,6,5,5,7,7,6,4,1,6,8,3,7,3,1,7,8,6,7,9,8,8,3,8,8,4,5,8,8,1,9,2,9,9,7,4";
     private Scanner scanner = new Scanner(System.in);
     private String line;
     private boolean end = false;

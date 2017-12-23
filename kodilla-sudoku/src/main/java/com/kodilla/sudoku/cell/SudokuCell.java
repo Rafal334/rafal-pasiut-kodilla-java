@@ -85,4 +85,8 @@ public class SudokuCell {
     public boolean isNumberInAvailableNumbers(Integer number){
         return availableNumbers.contains(number);
     }
+
+    public boolean differentCellsByPosition(SudokuCell cell){
+        return !rowNumber.equals(cell.getRowNumber()) || !columnNumber.equals(cell.getColumnNumber());
+    }
 }
