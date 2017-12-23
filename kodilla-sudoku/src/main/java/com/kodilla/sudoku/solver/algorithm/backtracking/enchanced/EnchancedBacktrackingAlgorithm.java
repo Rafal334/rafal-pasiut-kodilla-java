@@ -7,7 +7,7 @@ import com.kodilla.sudoku.solver.BadNumberException;
 import com.kodilla.sudoku.solver.NoSolutionException;
 import com.kodilla.sudoku.solver.SudokuSolver;
 import com.kodilla.sudoku.solver.SudokuUpdater;
-import com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.gusser.NumberGuesser;
+import com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.guesser.NumberGuesser;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,15 +37,8 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
                         System.out.println("--NO CHANGE--");
                     }
                 } catch (BadNumberException e) {
-                    if (backtrackList.isEmpty()) {
-                        throw new NoSolutionException();
-                    } else {
-                        sudoku = backtrackList.get(backtrackList.size() - 1);
-                        backtrackList.remove(backtrackList.size() - 1);
-                        System.out.println(sudoku);
-                        System.out.println("BACKTRACK");
-                        sudokuChanged = true;
-                    }
+                    checkBactrackAndRestore();
+                    sudokuChanged = true;
                 }
             } else {
                 NumberGuesser numberGuesser = new NumberGuesser(sudoku, backtrackList);
@@ -56,6 +49,21 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
             }
         }
         return sudoku;
+    }
+
+    private void checkBactrackAndRestore() throws NoSolutionException {
+        if (backtrackList.isEmpty()) {
+            throw new NoSolutionException();
+        } else {
+            restoreSudokuFromBacktrack();
+            System.out.println(sudoku);
+            System.out.println("BACKTRACK");
+        }
+    }
+
+    private void restoreSudokuFromBacktrack() {
+        sudoku = backtrackList.get(backtrackList.size() - 1);
+        backtrackList.remove(backtrackList.size() - 1);
     }
 
     private boolean iterateThrougAllCells(SudokuUpdater updater, boolean breakOnChange) throws BadNumberException {

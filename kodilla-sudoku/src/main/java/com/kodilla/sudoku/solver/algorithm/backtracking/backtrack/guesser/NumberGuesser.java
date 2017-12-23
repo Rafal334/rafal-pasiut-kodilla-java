@@ -1,4 +1,4 @@
-package com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.gusser;
+package com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.guesser;
 
 import com.kodilla.sudoku.board.SudokuBoard;
 import com.kodilla.sudoku.cell.SudokuCell;
@@ -30,14 +30,10 @@ public class NumberGuesser {
             while (cellIterator.hasNext()) {
                 cell = cellIterator.next();
                 if (cell.isEmpty()) {
-                    try {
-                        value = cell.getAvailableNumbers().iterator().next();
-                        cell.removeNumberFromAvailableNumbers(value);
-                        backtrackList.add(sudoku.deepCopy());
-                        cell.setValue(value);
-                    } catch (Exception e) {
-                        System.out.println("here");
-                    }
+                    value = cell.getAvailableNumbers().iterator().next();
+                    cell.removeNumberFromAvailableNumbers(value);
+                    backtrackList.add(sudoku.deepCopy());
+                    cell.setValue(value);
                     finished = true;
                     break;
                 }
