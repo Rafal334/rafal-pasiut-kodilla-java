@@ -8,11 +8,8 @@ import com.kodilla.sudoku.solver.NoSolutionException;
 import com.kodilla.sudoku.solver.SudokuSolver;
 import com.kodilla.sudoku.solver.SudokuUpdater;
 import com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.Backtracker;
-import com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.guesser.NumberGuesser;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
 
@@ -27,7 +24,7 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
     public SudokuBoard solve(SudokuBoard sudokuToSolve) throws NoSolutionException, CloneNotSupportedException {
         sudoku = sudokuToSolve;
         boolean sudokuChanged = true;
-        int i =0;
+        int i = 0;
         while (!sudoku.areAllCellsFilled()) {
             if (sudokuChanged) {
                 try {
@@ -93,26 +90,28 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
     }
 
     private boolean checkNumberSimple(SudokuCell cell, Integer number) {
-        ValueOccurenceChecker valueOccurenceChecker = new ValueOccurenceChecker(sudoku);
-        boolean isNumberOK = valueOccurenceChecker.isNumberOKForCell(cell, number);
-        if (isNumberOK) {
+        Checker checker = new Checker(sudoku);
+        boolean isNumberNOK = checker.isNumberInRowColumnSection(cell, number);
+        if (isNumberNOK) {
+            return true;
+        } else {
             if (cell.isOnlyOneSolution()) {
                 cell.setSolution();
                 return true;
             }
             return false;
-        } else {
-            return true;
         }
     }
 
     private boolean checkNumberByElimination(SudokuCell cell, Integer number) {
-        EliminationChecker eliminationChecker = new EliminationChecker(sudoku);
-        boolean isNumberOK = eliminationChecker.isNumberOKByElimination(cell, number);
-        if (isNumberOK) {
+        Checker checker = new Checker(sudoku);
+        boolean isNumberNOK = checker.canNumberBeAnywhereElse(cell, number);
+        if (isNumberNOK) {
+            return false;
+        } else {
             cell.setValue(number);
             return true;
         }
-        return false;
+
     }
 }
