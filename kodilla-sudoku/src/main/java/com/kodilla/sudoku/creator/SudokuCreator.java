@@ -7,9 +7,9 @@ public class SudokuCreator {
 
     private SudokuBoard sudokuBoard = new SudokuBoard();
     private CellInputParser parser = new CellInputParser();
-    private boolean end = false;
 
     public SudokuBoard prepareSudokuDraft(String line) throws WrogInputException {
+        sudokuBoard = new SudokuBoard();
         setCellsInSudoku(parser.parseInput(line));
         return sudokuBoard;
     }

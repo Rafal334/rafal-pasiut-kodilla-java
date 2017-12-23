@@ -63,4 +63,26 @@ public class SudokuBoard extends Prototype {
                 .mapToObj(i -> new SudokuRow(i))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SudokuBoard that = (SudokuBoard) o;
+
+        int i=0, j=0;
+        for(SudokuRow row : rows){
+            for(SudokuCell cell : row.getCells()){
+                if(!cell.getValue().equals(that.rows.get(i).getCells().get(j).getValue())){
+                    return false;
+                }
+                j++;
+            }
+            i++;
+            j=0;
+        }
+
+        return true;
+    }
 }

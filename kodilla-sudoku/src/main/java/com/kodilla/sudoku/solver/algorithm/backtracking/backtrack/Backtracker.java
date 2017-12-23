@@ -21,7 +21,6 @@ public class Backtracker {
         if (backtrackList.isEmpty()) {
             throw new NoSolutionException();
         } else {
-            System.out.println("BACKTRACK");
             return restoreSudokuFromBacktrack();
         }
     }

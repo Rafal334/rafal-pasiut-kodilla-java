@@ -27,6 +27,7 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
     public SudokuBoard solve(SudokuBoard sudokuToSolve) throws NoSolutionException, CloneNotSupportedException {
         sudoku = sudokuToSolve;
         boolean sudokuChanged = true;
+        int i =0;
         while (!sudoku.areAllCellsFilled()) {
             if (sudokuChanged) {
                 try {
@@ -34,20 +35,17 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
                     if (!sudokuChanged) {
                         sudokuChanged = iterateThrougAllCells(this::checkNumberByElimination, true);
                     }
-                    if (!sudokuChanged) {
-                        System.out.println("--NO CHANGE--");
-                    }
                 } catch (BadNumberException e) {
                     sudoku = backtracker.checkBactrackAndRestore();
                     sudokuChanged = true;
                 }
             } else {
                 backtracker.guessNumber(sudoku);
-                System.out.println(sudoku);
-                System.out.println("GUESS");
                 sudokuChanged = true;
             }
+            i++;
         }
+        System.out.println(i);
         return sudoku;
     }
 
@@ -100,8 +98,6 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
         if (isNumberOK) {
             if (cell.isOnlyOneSolution()) {
                 cell.setSolution();
-                System.out.println(sudoku);
-                System.out.println("SET");
                 return true;
             }
             return false;
@@ -115,8 +111,6 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
         boolean isNumberOK = eliminationChecker.isNumberOKByElimination(cell, number);
         if (isNumberOK) {
             cell.setValue(number);
-            System.out.println(sudoku);
-            System.out.println("SET BY ELIMINATION");
             return true;
         }
         return false;
