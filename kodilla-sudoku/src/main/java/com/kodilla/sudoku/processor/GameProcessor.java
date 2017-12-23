@@ -3,7 +3,7 @@ package com.kodilla.sudoku.processor;
 import com.kodilla.sudoku.board.SudokuBoard;
 import com.kodilla.sudoku.creator.SudokuCreator;
 import com.kodilla.sudoku.creator.WrogInputException;
-import com.kodilla.sudoku.solver.enchancedBacktrackingAlgorithm.EnchancedBacktrackingAlgorithm;
+import com.kodilla.sudoku.solver.algorithm.backtracking.enchanced.EnchancedBacktrackingAlgorithm;
 import com.kodilla.sudoku.solver.NoSolutionException;
 import com.kodilla.sudoku.solver.SudokuSolver;
 

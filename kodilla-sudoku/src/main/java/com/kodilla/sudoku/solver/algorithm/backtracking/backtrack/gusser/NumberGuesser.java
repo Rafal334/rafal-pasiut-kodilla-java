@@ -1,4 +1,4 @@
-package com.kodilla.sudoku.solver.enchancedBacktrackingAlgorithm;
+package com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.gusser;
 
 import com.kodilla.sudoku.board.SudokuBoard;
 import com.kodilla.sudoku.cell.SudokuCell;

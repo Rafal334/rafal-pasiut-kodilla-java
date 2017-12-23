@@ -1,4 +1,4 @@
-package com.kodilla.sudoku.solver.enchancedBacktrackingAlgorithm;
+package com.kodilla.sudoku.solver.algorithm.backtracking.enchanced;
 
 import com.kodilla.sudoku.board.SudokuBoard;
 import com.kodilla.sudoku.cell.SudokuCell;
@@ -7,6 +7,7 @@ import com.kodilla.sudoku.solver.BadNumberException;
 import com.kodilla.sudoku.solver.NoSolutionException;
 import com.kodilla.sudoku.solver.SudokuSolver;
 import com.kodilla.sudoku.solver.SudokuUpdater;
+import com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.gusser.NumberGuesser;
 
 import java.util.ArrayList;
 import java.util.Iterator;
