@@ -30,7 +30,7 @@ public class GameProcessor {
                 takeAction();
             } catch (Exception e) {
                 try {
-                    sudokuBoard = sudokuCreator.prepareSudokuDraft(line);
+                    sudokuBoard = sudokuCreator.addNumbersToBoard(line);
                     System.out.println(sudokuBoard);
                 } catch (WrogInputException exception) {
                     System.out.println("Bad command. Type \"help\" for hints");
@@ -73,7 +73,8 @@ public class GameProcessor {
     private void prepareDebugSudoku() {
         try {
             line = DEBUG_SUDOKU;
-            sudokuBoard = sudokuCreator.prepareSudokuDraft(line);
+            sudokuCreator.createNewBoard();
+            sudokuBoard = sudokuCreator.addNumbersToBoard(line);
             System.out.println(sudokuBoard);
         } catch(WrogInputException e){
             System.out.println("Wrong debug sudoku");
