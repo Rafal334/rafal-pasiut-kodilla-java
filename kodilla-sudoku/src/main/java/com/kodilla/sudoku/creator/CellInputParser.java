@@ -1,6 +1,8 @@
 package com.kodilla.sudoku.creator;
 
 import com.kodilla.sudoku.board.SudokuBoard;
+import com.kodilla.sudoku.cell.SudokuCell;
+import com.kodilla.sudoku.solver.algorithm.backtracking.enchanced.Checker;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,23 +16,42 @@ public class CellInputParser {
         StringTokenizer tokenizer = new StringTokenizer(input, ",");
 
         while (tokenizer.hasMoreTokens()) {
-            try {
-                row = new Integer(tokenizer.nextToken());
-                column = new Integer(tokenizer.nextToken());
-                value = new Integer(tokenizer.nextToken());
-                if (isDataValid(row, column, value)) {
-                    result.add(new CellValueDTO(row, column, value));
-                } else {
-                    throw new WrogInputException();
-                }
-            } catch (Exception e) {
-                throw new WrogInputException();
+            row = new Integer(tokenizer.nextToken());
+            column = new Integer(tokenizer.nextToken());
+            value = new Integer(tokenizer.nextToken());
+            if (isDataValid(row, column, value)) {
+                result.add(new CellValueDTO(row, column, value));
             }
         }
         return result;
     }
 
-    private boolean isDataValid(Integer row, Integer column, Integer value) {
-        return (row != null && column != null && value != null) && ((row >= 1 && row <= SudokuBoard.SUDOKU_SIZE) && (column >= 1 && column <= SudokuBoard.SUDOKU_SIZE) && (value >= 1 && value <= SudokuBoard.SUDOKU_SIZE));
+    private boolean isDataValid(Integer row, Integer column, Integer value) throws WrogInputException {
+        String exceptionMessage ="";
+        if(!isNotNull(row, column, value)){
+            exceptionMessage+="Bad command\n";
+        }
+        if(!isElementInRange(row)){
+            exceptionMessage+="Row must be in range from 1, to: " + SudokuBoard.SECTION_ROWS +"\n";
+        }
+        if(!isElementInRange(column)){
+            exceptionMessage+="Column must be in range from 1, to: " + SudokuBoard.SECTION_COLUMNS +"\n";
+        }
+        if(!isElementInRange(value)){
+            exceptionMessage+="Value must be in range from 1, to: " + SudokuBoard.SECTION_ROWS +"\n";
+        }
+        if(exceptionMessage.isEmpty()){
+            return true;
+        }else{
+            throw new WrogInputException(exceptionMessage);
+        }
+    }
+
+    private boolean isNotNull(Integer row, Integer column, Integer value) {
+        return row != null && column != null && value != null;
+    }
+
+    private boolean isElementInRange(Integer elementValue) {
+        return elementValue >= 1 && elementValue <= SudokuBoard.SUDOKU_SIZE;
     }
 }

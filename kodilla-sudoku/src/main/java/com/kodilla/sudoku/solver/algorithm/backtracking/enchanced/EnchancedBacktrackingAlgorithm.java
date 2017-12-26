@@ -42,7 +42,7 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
             }
             i++;
         }
-        System.out.println(i);
+        System.out.println("Iterations to solve this sudoku: " + i);
         return sudoku;
     }
 

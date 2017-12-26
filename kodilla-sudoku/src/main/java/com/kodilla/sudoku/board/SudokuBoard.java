@@ -26,6 +26,10 @@ public class SudokuBoard extends Prototype {
         cells.forEach(cell -> rows.get(cell.getRowNumber() - 1).setCellValue(cell));
     }
 
+    public void setCell(CellValueDTO cell) {
+        rows.get(cell.getRowNumber() - 1).setCellValue(cell);
+    }
+
     public SudokuBoard(SudokuBoard sudoku) {
         rows = sudoku.rows;
     }
