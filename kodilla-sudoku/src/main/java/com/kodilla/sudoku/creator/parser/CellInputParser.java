@@ -31,13 +31,13 @@ public class CellInputParser {
             exceptionMessage+="Bad command\n";
         }
         if(!isElementInRange(row)){
-            exceptionMessage+="Row must be in range from 1, to: " + SudokuBoard.SECTION_ROWS +"\n";
+            exceptionMessage+="Row must be in range from 1, to: " + SudokuBoard.SUDOKU_SIZE +"\n";
         }
         if(!isElementInRange(column)){
-            exceptionMessage+="Column must be in range from 1, to: " + SudokuBoard.SECTION_COLUMNS +"\n";
+            exceptionMessage+="Column must be in range from 1, to: " + SudokuBoard.SUDOKU_SIZE +"\n";
         }
         if(!isElementInRange(value)){
-            exceptionMessage+="Value must be in range from 1, to: " + SudokuBoard.SECTION_ROWS +"\n";
+            exceptionMessage+="Value must be in range from 1, to: " + SudokuBoard.SUDOKU_SIZE +"\n";
         }
         if(exceptionMessage.isEmpty()){
             return true;
