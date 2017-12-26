@@ -2,6 +2,8 @@ package com.kodilla.sudoku.creator;
 
 import com.kodilla.sudoku.board.SudokuBoard;
 import com.kodilla.sudoku.cell.SudokuCell;
+import com.kodilla.sudoku.creator.parser.CellInputParser;
+import com.kodilla.sudoku.creator.parser.WrogInputException;
 import com.kodilla.sudoku.solver.algorithm.backtracking.enchanced.Checker;
 
 import java.util.Set;

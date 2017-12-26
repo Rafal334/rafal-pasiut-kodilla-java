@@ -33,10 +33,7 @@ public class SudokuTestsSuite {
             sudokuSolutionBoard = creator.addNumbersToBoard(sudokuSolution);
             creator.createNewBoard();
             sudokuBoard = creator.addNumbersToBoard(sudokuLine);
-            System.out.println("To solve:");
-            System.out.println(sudokuBoard);
-            System.out.println("Expected solution:");
-            System.out.println(sudokuSolutionBoard);
+            showSudokus(sudokuBoard, sudokuSolutionBoard);
 
         } catch (Exception e) {
             System.out.println("Exception when creating sudoku");
@@ -57,6 +54,48 @@ public class SudokuTestsSuite {
         Assert.assertNotNull(sudokuSolutionBoard);
         Assert.assertNotNull(sudokuBoard);
         Assert.assertEquals(sudokuSolutionBoard, sudokuBoard);
+    }
+
+    @Test
+    public void testSudokuAgainstBruteForce() {
+        //Given
+        String sudokuLine = "2,6,3,2,8,8,2,9,5,3,3,1,3,5,2,4,4,5,4,6,7,5,3,4,5,7,1,6,2,9,7,1,5,7,8,7,7,9,3,8,3,2,8,5,1,9,5,4,9,9,9";
+        String sudokuSolution = "1,1,9,1,2,8,1,3,7,1,4,6,1,5,5,1,6,4,1,7,3,1,8,2,1,9,1,2,1,2,2,2,4,2,3,6,2,4,1,2,5,7,2,6,3,2,7,9,2,8,8,2,9,5,3,1,3,3,2,5,3,3,1,3,4,9,3,5,2,3,6,8,3,7,7,3,8,4,3,9,6,4,1,1,4,2,2,4,3,8,4,4,5,4,5,3,4,6,7,4,7,6,4,8,9,4,9,4,5,1,6,5,2,3,5,3,4,5,4,8,5,5,9,5,6,2,5,7,1,5,8,5,5,9,7,6,1,7,6,2,9,6,3,5,6,4,4,6,5,6,6,6,1,6,7,8,6,8,3,6,9,2,7,1,5,7,2,1,7,3,9,7,4,2,7,5,8,7,6,6,7,7,4,7,8,7,7,9,3,8,1,4,8,2,7,8,3,2,8,4,3,8,5,1,8,6,9,8,7,5,8,8,6,8,9,8,9,1,8,9,2,6,9,3,3,9,4,7,9,5,4,9,6,5,9,7,2,9,8,1,9,9,9";
+        SudokuBoard sudokuBoard = null;
+        SudokuBoard sudokuSolutionBoard = null;
+
+        try {
+            sudokuSolutionBoard = creator.addNumbersToBoard(sudokuSolution);
+            creator.createNewBoard();
+            sudokuBoard = creator.addNumbersToBoard(sudokuLine);
+            showSudokus(sudokuBoard, sudokuSolutionBoard);
+
+        } catch (Exception e) {
+            System.out.println("Exception when creating sudoku");
+        }
+
+        //When
+        try {
+            sudokuBoard = solver.solve(sudokuBoard);
+        } catch (NoSolutionException e) {
+            System.out.println("No solution");
+        } catch (CloneNotSupportedException cloneException) {
+            System.out.println("Critical ERROR");
+        }
+
+        //Then
+        System.out.println("SOLUTION:");
+        System.out.println(sudokuBoard);
+        Assert.assertNotNull(sudokuSolutionBoard);
+        Assert.assertNotNull(sudokuBoard);
+        Assert.assertEquals(sudokuSolutionBoard, sudokuBoard);
+    }
+
+    private void showSudokus(SudokuBoard sudokuBoard, SudokuBoard sudokuSolutionBoard) {
+        System.out.println("To solve:");
+        System.out.println(sudokuBoard);
+        System.out.println("Expected solution:");
+        System.out.println(sudokuSolutionBoard);
     }
 
     @Test
@@ -81,7 +120,7 @@ public class SudokuTestsSuite {
         } catch (NoSolutionException e) {
             System.out.println("No solution");
             excepionCought = true;
-        } catch(Exception exception){
+        } catch (Exception exception) {
             System.out.println("Exception when solving sudoku");
         }
 

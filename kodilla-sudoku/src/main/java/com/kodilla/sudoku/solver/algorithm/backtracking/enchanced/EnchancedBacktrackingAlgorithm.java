@@ -2,19 +2,18 @@ package com.kodilla.sudoku.solver.algorithm.backtracking.enchanced;
 
 import com.kodilla.sudoku.board.SudokuBoard;
 import com.kodilla.sudoku.cell.SudokuCell;
-import com.kodilla.sudoku.row.SudokuRow;
 import com.kodilla.sudoku.solver.BadNumberException;
 import com.kodilla.sudoku.solver.NoSolutionException;
+import com.kodilla.sudoku.solver.SudokuCheckAlgorithm;
 import com.kodilla.sudoku.solver.SudokuSolver;
-import com.kodilla.sudoku.solver.SudokuUpdater;
 import com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.Backtracker;
-
-import java.util.Iterator;
+import com.kodilla.sudoku.solver.algorithm.backtracking.iterator.CellsIterator;
 
 public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
 
     private Backtracker backtracker;
     private SudokuBoard sudoku;
+    private CellsIterator cellsIterator;
 
     public EnchancedBacktrackingAlgorithm() {
         backtracker = new Backtracker();
@@ -22,71 +21,41 @@ public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
 
     @Override
     public SudokuBoard solve(SudokuBoard sudokuToSolve) throws NoSolutionException, CloneNotSupportedException {
-        sudoku = sudokuToSolve;
-        boolean sudokuChanged = true;
-        int i = 0;
-        while (!sudoku.areAllCellsFilled()) {
-            if (sudokuChanged) {
-                try {
-                    sudokuChanged = iterateThrougAllCells(this::checkNumberSimple, false);
-                    if (!sudokuChanged) {
-                        sudokuChanged = iterateThrougAllCells(this::checkNumberByElimination, true);
-                    }
-                } catch (BadNumberException e) {
-                    sudoku = backtracker.checkBactrackAndRestore();
+        if (sudokuToSolve != null) {
+            sudoku = sudokuToSolve;
+            boolean sudokuChanged = true;
+            int i = 0;
+            while (!sudoku.areAllCellsFilled()) {
+                if (sudokuChanged) {
+                    sudokuChanged = runCheckAlgorithms();
+                } else {
+                    backtracker.guessNumber(sudoku);
                     sudokuChanged = true;
                 }
-            } else {
-                backtracker.guessNumber(sudoku);
-                sudokuChanged = true;
+                i++;
             }
-            i++;
+            System.out.println("Iterations to solve this sudoku: " + i);
         }
-        System.out.println("Iterations to solve this sudoku: " + i);
         return sudoku;
     }
 
-    private boolean iterateThrougAllCells(SudokuUpdater updater, boolean breakOnChange) throws BadNumberException {
-        boolean sudokuChanged = false;
-        boolean updated;
-        Iterator<SudokuRow> rowIterator = sudoku.getRows().iterator();
-        SudokuRow row;
-        Iterator<SudokuCell> cellIterator;
-        SudokuCell cell;
-        Iterator<Integer> numberIterator;
-        Integer number;
-
-        while (rowIterator.hasNext()) {
-            row = rowIterator.next();
-            cellIterator = row.getCells().iterator();
-            while (cellIterator.hasNext()) {
-                cell = cellIterator.next();
-                if (cell.isEmpty()) {
-                    numberIterator = cell.getAvailableNumbers().iterator();
-                    while (numberIterator.hasNext()) {
-                        number = numberIterator.next();
-                        updated = updater.updateSudoku(cell, number);
-                        removeNumberIfUpdated(updated, cell, numberIterator);
-                        if (updated && breakOnChange) {
-                            return true;
-                        }
-                        if (!sudokuChanged) {
-                            sudokuChanged = updated;
-                        }
-                    }
-                }
+    private boolean runCheckAlgorithms() throws NoSolutionException {
+        boolean sudokuChanged;
+        try {
+            sudokuChanged = checkSudokuWithAlgorithm(this::checkNumberSimple, false);
+            if (!sudokuChanged) {
+                sudokuChanged = checkSudokuWithAlgorithm(this::checkNumberByElimination, true);
             }
+        } catch (BadNumberException e) {
+            sudoku = backtracker.checkBactrackAndRestore();
+            sudokuChanged = true;
         }
         return sudokuChanged;
     }
 
-    private void removeNumberIfUpdated(boolean update, SudokuCell cell, Iterator<Integer> numberIterator) throws BadNumberException {
-        if (update) {
-            numberIterator.remove();
-            if (cell.getAvailableNumbers().isEmpty() && cell.isEmpty()) {
-                throw new BadNumberException();
-            }
-        }
+    private boolean checkSudokuWithAlgorithm(SudokuCheckAlgorithm algorithm, boolean breakOnChange) throws BadNumberException {
+        cellsIterator = new CellsIterator(sudoku, algorithm, breakOnChange);
+        return cellsIterator.iterateThroughAllCells();
     }
 
     private boolean checkNumberSimple(SudokuCell cell, Integer number) {

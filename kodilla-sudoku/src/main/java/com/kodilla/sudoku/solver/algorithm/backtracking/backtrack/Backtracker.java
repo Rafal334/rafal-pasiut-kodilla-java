@@ -25,8 +25,8 @@ public class Backtracker {
         }
     }
 
-    public void guessNumber(SudokuBoard sudoku) throws CloneNotSupportedException{
-        numberGuesser.guessNumber(sudoku ,backtrackList);
+    public void guessNumber(SudokuBoard sudoku) throws CloneNotSupportedException {
+        numberGuesser.guessNumber(sudoku, backtrackList);
     }
 
     private SudokuBoard restoreSudokuFromBacktrack() {

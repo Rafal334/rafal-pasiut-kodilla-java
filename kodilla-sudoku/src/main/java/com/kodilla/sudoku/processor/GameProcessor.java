@@ -3,16 +3,16 @@ package com.kodilla.sudoku.processor;
 import com.kodilla.sudoku.board.SudokuBoard;
 import com.kodilla.sudoku.creator.NotUniqueCellValue;
 import com.kodilla.sudoku.creator.SudokuCreator;
-import com.kodilla.sudoku.creator.WrogInputException;
-import com.kodilla.sudoku.solver.algorithm.backtracking.enchanced.EnchancedBacktrackingAlgorithm;
+import com.kodilla.sudoku.creator.parser.WrogInputException;
 import com.kodilla.sudoku.solver.NoSolutionException;
 import com.kodilla.sudoku.solver.SudokuSolver;
+import com.kodilla.sudoku.solver.algorithm.backtracking.enchanced.EnchancedBacktrackingAlgorithm;
 
 import java.util.Scanner;
 
 public class GameProcessor {
 
-    public static final String DEBUG_SUDOKU = "1,1,8,2,3,3,2,4,6,3,2,7,3,5,9,3,7,2,4,2,5,4,6,7,5,5,4,5,6,5,5,7,7,6,4,1,6,8,3,7,3,1,7,8,6,7,9,8,8,3,8,8,4,5,8,8,1,9,2,9,9,7,4";
+    private static final String DEBUG_SUDOKU = "1,1,8,2,3,3,2,4,6,3,2,7,3,5,9,3,7,2,4,2,5,4,6,7,5,5,4,5,6,5,5,7,7,6,4,1,6,8,3,7,3,1,7,8,6,7,9,8,8,3,8,8,4,5,8,8,1,9,2,9,9,7,4";
     private Scanner scanner = new Scanner(System.in);
     private String line;
     private boolean end = false;
@@ -24,38 +24,31 @@ public class GameProcessor {
         printWelcomeMessage();
         printHelpMessage();
         while (!end) {
-            System.out.println("Please insert new numbers, or other command");
+            System.out.println("Please insert new numbers, or write new command");
             line = scanner.nextLine();
             try {
                 takeAction();
             } catch (Exception e) {
-                try {
-                    sudokuBoard = sudokuCreator.addNumbersToBoard(line);
-                    System.out.println(sudokuBoard);
-                } catch (WrogInputException exception) {
-                    System.out.println(exception.getMessage());
-                } catch (NotUniqueCellValue notUniqueexception){
-                    System.out.println(notUniqueexception.getMessage());
-                } catch (Exception otherExceptions){
-                    System.out.println("Bad command. Type help to show help message.");
-                }
+                tryAddingNewCellsToSudoku();
             }
+        }
+    }
+
+    private void tryAddingNewCellsToSudoku() {
+        try {
+            sudokuBoard = sudokuCreator.addNumbersToBoard(line);
+            System.out.println(sudokuBoard);
+        } catch (WrogInputException | NotUniqueCellValue exception) {
+            System.out.println(exception.getMessage());
+        } catch (Exception otherExceptions) {
+            System.out.println("Bad command. Type help to show help message.");
         }
     }
 
     private void takeAction() {
         switch (parseLine()) {
             case SUDOKU:
-                try {
-                    System.out.println(sudokuSolver.solve(sudokuBoard));
-                }catch(NoSolutionException e){
-                    System.out.println("Can`t solve. Bad sudoku?");
-                }catch(CloneNotSupportedException e){
-                    System.out.println("Critical ERROR. Clone not support exception.");
-                }catch(Exception e){
-                    System.out.println("Unhandled exception.");
-                    e.printStackTrace();
-                }
+                solveSudoku();
                 break;
             case HELP:
                 printHelpMessage();
@@ -74,13 +67,27 @@ public class GameProcessor {
         }
     }
 
+    private void solveSudoku() {
+        try {
+            sudokuBoard = sudokuSolver.solve(sudokuBoard);
+            System.out.println(sudokuBoard);
+        } catch (NoSolutionException e) {
+            System.out.println("Can`t solve. Bad sudoku?");
+        } catch (CloneNotSupportedException e) {
+            System.out.println("Critical ERROR. Clone not support exception.");
+        } catch (Exception e) {
+            System.out.println("Unhandled exception.");
+            e.printStackTrace();
+        }
+    }
+
     private void prepareDebugSudoku() {
         try {
             line = DEBUG_SUDOKU;
             sudokuCreator.createNewBoard();
             sudokuBoard = sudokuCreator.addNumbersToBoard(line);
             System.out.println(sudokuBoard);
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Exception when creating debug sudoku");
         }
     }

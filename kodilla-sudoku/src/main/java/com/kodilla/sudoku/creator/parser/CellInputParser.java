@@ -1,8 +1,7 @@
-package com.kodilla.sudoku.creator;
+package com.kodilla.sudoku.creator.parser;
 
 import com.kodilla.sudoku.board.SudokuBoard;
-import com.kodilla.sudoku.cell.SudokuCell;
-import com.kodilla.sudoku.solver.algorithm.backtracking.enchanced.Checker;
+import com.kodilla.sudoku.creator.CellValueDTO;
 
 import java.util.HashSet;
 import java.util.Set;
