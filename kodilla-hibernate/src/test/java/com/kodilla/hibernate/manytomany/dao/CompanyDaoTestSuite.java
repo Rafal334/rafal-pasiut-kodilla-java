@@ -9,12 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CompanyDaoTestSuite {
 
     @Autowired
     CompanyDao companyDao;
+    @Autowired
+    EmployeeDao employeeDao;
 
     @Test
     public void testSaveManyToMany() {
@@ -57,6 +61,33 @@ public class CompanyDaoTestSuite {
             companyDao.delete(softwareMachineId);
             companyDao.delete(dataMaestersId);
             companyDao.delete(greyMatterId);
+        } catch (Exception e) {
+            //do nothing
+        }
+    }
+
+    @Test
+    public void testLastnameSearch(){
+        //Given
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
+
+        employeeDao.save(johnSmith);
+        employeeDao.save(stephanieClarckson);
+        employeeDao.save(lindaKovalsky);
+
+        //When
+        List<Employee> employeesWithSmithLastname = employeeDao.findUsersWithLastname("Smith");
+
+        //Then
+        Assert.assertEquals(1, employeesWithSmithLastname.size());
+
+        //CleanUp
+        try {
+            employeeDao.delete(johnSmith);
+            employeeDao.delete(stephanieClarckson);
+            employeeDao.delete(lindaKovalsky);
         } catch (Exception e) {
             //do nothing
         }
