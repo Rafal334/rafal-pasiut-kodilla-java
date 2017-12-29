@@ -67,7 +67,7 @@ public class CompanyDaoTestSuite {
     }
 
     @Test
-    public void testLastnameSearch(){
+    public void testLastnameSearch() {
         //Given
         Employee johnSmith = new Employee("John", "Smith");
         Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
@@ -88,6 +88,33 @@ public class CompanyDaoTestSuite {
             employeeDao.delete(johnSmith);
             employeeDao.delete(stephanieClarckson);
             employeeDao.delete(lindaKovalsky);
+        } catch (Exception e) {
+            //do nothing
+        }
+    }
+
+    @Test
+    public void testSearchCompaniesStartWith() {
+        //Given
+        Company softwareMachine = new Company("Software Machine");
+        Company softwareMaesters = new Company("Software Maesters");
+        Company greyMatter = new Company("Grey Matter");
+
+        companyDao.save(softwareMachine);
+        companyDao.save(softwareMaesters);
+        companyDao.save(greyMatter);
+
+        //When
+        List<Company> companiesStarWith = companyDao.findCompanyStartsWith("Sof");
+
+        //Then
+        Assert.assertEquals(2, companiesStarWith.size());
+
+        //CleanUp
+        try {
+            companyDao.delete(softwareMachine);
+            companyDao.delete(softwareMaesters);
+            companyDao.delete(greyMatter);
         } catch (Exception e) {
             //do nothing
         }
