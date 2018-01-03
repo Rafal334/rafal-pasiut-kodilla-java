@@ -1,13 +1,10 @@
-package com.kodilla.sudoku.solver.algorithm.backtracking.enchanced;
+package com.kodilla.sudoku.solver.algorithm.backtracking;
 
 import com.kodilla.sudoku.board.SudokuBoard;
-import com.kodilla.sudoku.cell.SudokuCell;
-import com.kodilla.sudoku.solver.BadNumberException;
-import com.kodilla.sudoku.solver.NoSolutionException;
-import com.kodilla.sudoku.solver.SudokuCheckAlgorithm;
+import com.kodilla.sudoku.board.SudokuCell;
+import com.kodilla.sudoku.exceptions.BadNumberException;
+import com.kodilla.sudoku.exceptions.NoSolutionException;
 import com.kodilla.sudoku.solver.SudokuSolver;
-import com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.Backtracker;
-import com.kodilla.sudoku.solver.algorithm.backtracking.iterator.CellsIterator;
 
 public class EnchancedBacktrackingAlgorithm implements SudokuSolver {
 

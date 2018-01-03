@@ -1,8 +1,8 @@
-package com.kodilla.sudoku.solver.algorithm.backtracking.backtrack;
+package com.kodilla.sudoku.solver.algorithm.backtracking;
 
 import com.kodilla.sudoku.board.SudokuBoard;
-import com.kodilla.sudoku.solver.NoSolutionException;
-import com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.guesser.NumberGuesser;
+import com.kodilla.sudoku.exceptions.NoSolutionException;
+import com.kodilla.sudoku.solver.algorithm.backtracking.NumberGuesser;
 
 import java.util.ArrayList;
 import java.util.List;

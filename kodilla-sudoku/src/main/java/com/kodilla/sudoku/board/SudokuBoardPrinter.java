@@ -1,7 +1,5 @@
 package com.kodilla.sudoku.board;
 
-import com.kodilla.sudoku.row.SudokuRow;
-
 public class SudokuBoardPrinter {
 
     public String drawSudokuString(SudokuBoard sudoku) {

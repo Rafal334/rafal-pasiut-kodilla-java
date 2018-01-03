@@ -1,7 +1,7 @@
-package com.kodilla.sudoku.row;
+package com.kodilla.sudoku.board;
 
 import com.kodilla.sudoku.board.SudokuBoard;
-import com.kodilla.sudoku.cell.SudokuCell;
+import com.kodilla.sudoku.board.SudokuCell;
 import com.kodilla.sudoku.creator.CellValueDTO;
 
 import java.util.ArrayList;

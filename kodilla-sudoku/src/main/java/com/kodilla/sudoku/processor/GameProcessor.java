@@ -1,12 +1,12 @@
 package com.kodilla.sudoku.processor;
 
 import com.kodilla.sudoku.board.SudokuBoard;
-import com.kodilla.sudoku.creator.NotUniqueCellValue;
-import com.kodilla.sudoku.creator.SudokuCreator;
-import com.kodilla.sudoku.creator.parser.WrogInputException;
-import com.kodilla.sudoku.solver.NoSolutionException;
+import com.kodilla.sudoku.exceptions.NotUniqueCellValue;
+import com.kodilla.sudoku.creator.Creator;
+import com.kodilla.sudoku.exceptions.WrogInputException;
+import com.kodilla.sudoku.exceptions.NoSolutionException;
 import com.kodilla.sudoku.solver.SudokuSolver;
-import com.kodilla.sudoku.solver.algorithm.backtracking.enchanced.EnchancedBacktrackingAlgorithm;
+import com.kodilla.sudoku.solver.algorithm.backtracking.EnchancedBacktrackingAlgorithm;
 
 import java.util.Scanner;
 
@@ -16,7 +16,7 @@ public class GameProcessor {
     private Scanner scanner = new Scanner(System.in);
     private String line;
     private boolean end = false;
-    private SudokuCreator sudokuCreator = new SudokuCreator();
+    private Creator sudokuCreator = new Creator();
     private SudokuBoard sudokuBoard = new SudokuBoard();
     private SudokuSolver sudokuSolver = new EnchancedBacktrackingAlgorithm();
 
@@ -103,7 +103,7 @@ public class GameProcessor {
     }
 
     private void clearBoardAndCreator() {
-        sudokuCreator = new SudokuCreator();
+        sudokuCreator = new Creator();
         sudokuBoard = new SudokuBoard();
     }
 

@@ -1,8 +1,8 @@
-package com.kodilla.sudoku.solver.algorithm.backtracking.backtrack.guesser;
+package com.kodilla.sudoku.solver.algorithm.backtracking;
 
 import com.kodilla.sudoku.board.SudokuBoard;
-import com.kodilla.sudoku.cell.SudokuCell;
-import com.kodilla.sudoku.row.SudokuRow;
+import com.kodilla.sudoku.board.SudokuCell;
+import com.kodilla.sudoku.board.SudokuRow;
 
 import java.util.Iterator;
 import java.util.List;

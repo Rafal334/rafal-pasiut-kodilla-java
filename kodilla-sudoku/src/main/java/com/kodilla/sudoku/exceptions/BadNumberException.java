@@ -1,4 +1,4 @@
-package com.kodilla.sudoku.solver;
+package com.kodilla.sudoku.exceptions;
 
 public class BadNumberException extends Exception {
 }

@@ -1,4 +1,4 @@
-package com.kodilla.sudoku.creator.parser;
+package com.kodilla.sudoku.exceptions;
 
 public class WrogInputException extends Exception {
 

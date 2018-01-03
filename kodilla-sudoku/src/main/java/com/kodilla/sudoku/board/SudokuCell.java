@@ -1,6 +1,4 @@
-package com.kodilla.sudoku.cell;
-
-import com.kodilla.sudoku.board.SudokuBoard;
+package com.kodilla.sudoku.board;
 
 import java.util.HashSet;
 import java.util.Set;

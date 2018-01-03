@@ -1,14 +1,14 @@
 package com.kodilla.sudoku.creator;
 
 import com.kodilla.sudoku.board.SudokuBoard;
-import com.kodilla.sudoku.cell.SudokuCell;
-import com.kodilla.sudoku.creator.parser.CellInputParser;
-import com.kodilla.sudoku.creator.parser.WrogInputException;
-import com.kodilla.sudoku.solver.algorithm.backtracking.enchanced.Checker;
+import com.kodilla.sudoku.board.SudokuCell;
+import com.kodilla.sudoku.exceptions.NotUniqueCellValue;
+import com.kodilla.sudoku.exceptions.WrogInputException;
+import com.kodilla.sudoku.solver.algorithm.backtracking.Checker;
 
 import java.util.Set;
 
-public class SudokuCreator {
+public class Creator {
 
     private SudokuBoard sudokuBoard = new SudokuBoard();
     private CellInputParser parser = new CellInputParser();

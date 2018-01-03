@@ -1,4 +1,4 @@
-package com.kodilla.sudoku.creator;
+package com.kodilla.sudoku.exceptions;
 
 public class NotUniqueCellValue extends Exception {
 

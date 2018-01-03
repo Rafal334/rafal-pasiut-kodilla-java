@@ -1,7 +1,7 @@
-package com.kodilla.sudoku.creator.parser;
+package com.kodilla.sudoku.creator;
 
 import com.kodilla.sudoku.board.SudokuBoard;
-import com.kodilla.sudoku.creator.CellValueDTO;
+import com.kodilla.sudoku.exceptions.WrogInputException;
 
 import java.util.HashSet;
 import java.util.Set;

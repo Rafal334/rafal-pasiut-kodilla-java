@@ -1,7 +1,7 @@
-package com.kodilla.sudoku.solver.algorithm.backtracking.enchanced;
+package com.kodilla.sudoku.solver.algorithm.backtracking;
 
 import com.kodilla.sudoku.board.SudokuBoard;
-import com.kodilla.sudoku.cell.SudokuCell;
+import com.kodilla.sudoku.board.SudokuCell;
 
 public class Checker {
 

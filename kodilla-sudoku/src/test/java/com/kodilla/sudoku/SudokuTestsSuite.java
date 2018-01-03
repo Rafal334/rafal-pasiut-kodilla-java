@@ -1,22 +1,22 @@
 package com.kodilla.sudoku;
 
 import com.kodilla.sudoku.board.SudokuBoard;
-import com.kodilla.sudoku.creator.SudokuCreator;
-import com.kodilla.sudoku.solver.NoSolutionException;
+import com.kodilla.sudoku.creator.Creator;
+import com.kodilla.sudoku.exceptions.NoSolutionException;
 import com.kodilla.sudoku.solver.SudokuSolver;
-import com.kodilla.sudoku.solver.algorithm.backtracking.enchanced.EnchancedBacktrackingAlgorithm;
+import com.kodilla.sudoku.solver.algorithm.backtracking.EnchancedBacktrackingAlgorithm;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class SudokuTestsSuite {
 
-    private SudokuCreator creator;
+    private Creator creator;
     private SudokuSolver solver;
 
     @Before
     public void before() {
-        creator = new SudokuCreator();
+        creator = new Creator();
         solver = new EnchancedBacktrackingAlgorithm();
     }
 
