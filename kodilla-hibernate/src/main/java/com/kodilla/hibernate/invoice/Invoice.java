@@ -1,7 +1,6 @@
 package com.kodilla.hibernate.invoice;
 
 import com.kodilla.hibernate.invoice.item.Item;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
 @Table(name = "INVOICES")
 public class Invoice {
 
-    private int id;
+    private Integer id;
     private String number;
     private List<Item> items;
 
@@ -23,10 +22,10 @@ public class Invoice {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @NotNull
     @Column(name = "INVOICE_ID", unique = true)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -40,7 +39,7 @@ public class Invoice {
         return items;
     }
 
-    private void setId(int id) {
+    private void setId(Integer id) {
         this.id = id;
     }
 
