@@ -20,11 +20,11 @@ public class ManyToManyFacade {
     }
 
     public List<Company> findCompaniesWithNameLike(String name) {
-        return companyDao.findCompaniesWithNameLike("%" + name + "%");
+        return companyDao.findCompaniesWithNameLike(name);
     }
 
     public List<Employee> finEmployeesWithNameLike(String name) {
-        return employeeDao.findEmployeesWithNameLike("%" + name + "%");
+        return employeeDao.findEmployeesWithNameLike(name);
     }
 
     public void addCompany(Company company){
