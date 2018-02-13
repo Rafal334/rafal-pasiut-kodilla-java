@@ -1,7 +1,5 @@
 package com.kodilla.hibernate.manytomany.facade;
 
-import com.kodilla.hibernate.manytomany.Company;
-import com.kodilla.hibernate.manytomany.Employee;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,25 +19,25 @@ public class ManyToManyFacadeTestSuite {
     ManyToManyFacade facade;
 
     @Test
-    public void testFindCompaniesWithNameLike(){
+    public void testFindCompaniesWithNameLike() {
         //Given
         facade.addCompany(new CompanyDto("ABC International"));
         facade.addCompany(new CompanyDto("Software ABCxx"));
         facade.addCompany(new CompanyDto("Corporate AB"));
 
         //When
-        List<Company> companiesABC = facade.findCompaniesWithNameLike("ABC");
-        List<Company> companiesAB = facade.findCompaniesWithNameLike("xx");
-        List<Company> emptyCompanies = facade.findCompaniesWithNameLike("test");
+        List<CompanyDto> companiesABC = facade.findCompaniesWithNameLike("ABC");
+        List<CompanyDto> companiesAB = facade.findCompaniesWithNameLike("xx");
+        List<CompanyDto> emptyCompanies = facade.findCompaniesWithNameLike("test");
 
         //Then
-        Assert.assertEquals(2,companiesABC.size());
-        Assert.assertEquals(1,companiesAB.size());
+        Assert.assertEquals(2, companiesABC.size());
+        Assert.assertEquals(1, companiesAB.size());
         Assert.assertTrue(emptyCompanies.isEmpty());
     }
 
     @Test
-    public void testFindEmployeesWithNameLike(){
+    public void testFindEmployeesWithNameLike() {
         //Given
         facade.addEmployee(new EmployeeDto("Jan", "Kowalski"));
         facade.addEmployee(new EmployeeDto("Robert", "Nowak"));
@@ -47,15 +45,15 @@ public class ManyToManyFacadeTestSuite {
         facade.addEmployee(new EmployeeDto("Tadeusz", "Nowakowski"));
 
         //When
-        List<Employee> employeesNowak= facade.findEmployeesWithNameLike("Nowak");
-        List<Employee> employeesSki = facade.findEmployeesWithNameLike("ski");
-        List<Employee> employessTurk = facade.findEmployeesWithNameLike("turk");
-        List<Employee> noEmployees = facade.findEmployeesWithNameLike("test");
+        List<EmployeeDto> employeesNowak = facade.findEmployeesWithNameLike("Nowak");
+        List<EmployeeDto> employeesSki = facade.findEmployeesWithNameLike("ski");
+        List<EmployeeDto> employessTurk = facade.findEmployeesWithNameLike("turk");
+        List<EmployeeDto> noEmployees = facade.findEmployeesWithNameLike("test");
 
         //Then
-        Assert.assertEquals(2,employeesNowak.size());
-        Assert.assertEquals(2,employeesSki.size());
-        Assert.assertEquals(1,employessTurk.size());
+        Assert.assertEquals(2, employeesNowak.size());
+        Assert.assertEquals(2, employeesSki.size());
+        Assert.assertEquals(1, employessTurk.size());
         Assert.assertTrue(noEmployees.isEmpty());
     }
 }

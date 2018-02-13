@@ -1,7 +1,5 @@
 package com.kodilla.hibernate.manytomany.facade;
 
-import com.kodilla.hibernate.manytomany.Company;
-import com.kodilla.hibernate.manytomany.Employee;
 import com.kodilla.hibernate.manytomany.dao.CompanyDao;
 import com.kodilla.hibernate.manytomany.dao.EmployeeDao;
 import org.springframework.stereotype.Service;
@@ -13,25 +11,27 @@ public class ManyToManyFacade {
 
     private CompanyDao companyDao;
     private EmployeeDao employeeDao;
+    private Mapper mapper;
 
-    public ManyToManyFacade(CompanyDao companyDao, EmployeeDao employeeDao) {
+    public ManyToManyFacade(CompanyDao companyDao, EmployeeDao employeeDao, Mapper mapper) {
         this.companyDao = companyDao;
         this.employeeDao = employeeDao;
+        this.mapper = mapper;
     }
 
-    public List<Company> findCompaniesWithNameLike(String name) {
-        return companyDao.findCompaniesWithNameLike(name);
+    public List<CompanyDto> findCompaniesWithNameLike(String name) {
+        return mapper.companiesToCompanyDtos(companyDao.findCompaniesWithNameLike(name));
     }
 
-    public List<Employee> findEmployeesWithNameLike(String name) {
-        return employeeDao.findEmployeesWithNameLike(name);
+    public List<EmployeeDto> findEmployeesWithNameLike(String name) {
+        return mapper.employeesToEmployeeDtos(employeeDao.findEmployeesWithNameLike(name));
     }
 
     public void addCompany(CompanyDto company){
-        companyDao.save(new Company(company.getName()));
+        companyDao.save(mapper.companyDtoToCompany(company));
     }
 
     public void addEmployee(EmployeeDto employee){
-        employeeDao.save(new Employee(employee.getFirstName(),employee.getLastName()));
+        employeeDao.save(mapper.employeeDtoToEmployee(employee));
     }
 }
