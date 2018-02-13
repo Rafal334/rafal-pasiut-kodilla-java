@@ -23,9 +23,9 @@ public class ManyToManyFacadeTestSuite {
     @Test
     public void testFindCompaniesWithNameLike(){
         //Given
-        facade.addCompany(new Company("ABC International"));
-        facade.addCompany(new Company("Software ABCxx"));
-        facade.addCompany(new Company("Corporate AB"));
+        facade.addCompany(new CompanyDto("ABC International"));
+        facade.addCompany(new CompanyDto("Software ABCxx"));
+        facade.addCompany(new CompanyDto("Corporate AB"));
 
         //When
         List<Company> companiesABC = facade.findCompaniesWithNameLike("ABC");
@@ -41,10 +41,10 @@ public class ManyToManyFacadeTestSuite {
     @Test
     public void testFindEmployeesWithNameLike(){
         //Given
-        facade.addEmployee(new Employee("Jan", "Kowalski"));
-        facade.addEmployee(new Employee("Robert", "Nowak"));
-        facade.addEmployee(new Employee("Bogdan", "Kosturkiewicz"));
-        facade.addEmployee(new Employee("Tadeusz", "Nowakowski"));
+        facade.addEmployee(new EmployeeDto("Jan", "Kowalski"));
+        facade.addEmployee(new EmployeeDto("Robert", "Nowak"));
+        facade.addEmployee(new EmployeeDto("Bogdan", "Kosturkiewicz"));
+        facade.addEmployee(new EmployeeDto("Tadeusz", "Nowakowski"));
 
         //When
         List<Employee> employeesNowak= facade.findEmployeesWithNameLike("Nowak");

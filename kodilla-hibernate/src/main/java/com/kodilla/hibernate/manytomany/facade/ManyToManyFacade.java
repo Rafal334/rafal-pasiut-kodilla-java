@@ -27,11 +27,11 @@ public class ManyToManyFacade {
         return employeeDao.findEmployeesWithNameLike(name);
     }
 
-    public void addCompany(Company company){
-        companyDao.save(company);
+    public void addCompany(CompanyDto company){
+        companyDao.save(new Company(company.getName()));
     }
 
-    public void addEmployee(Employee employee){
-        employeeDao.save(employee);
+    public void addEmployee(EmployeeDto employee){
+        employeeDao.save(new Employee(employee.getFirstName(),employee.getLastName()));
     }
 }
