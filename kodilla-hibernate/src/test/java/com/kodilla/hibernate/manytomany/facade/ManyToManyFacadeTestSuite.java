@@ -47,10 +47,10 @@ public class ManyToManyFacadeTestSuite {
         facade.addEmployee(new Employee("Tadeusz", "Nowakowski"));
 
         //When
-        List<Employee> employeesNowak= facade.finEmployeesWithNameLike("Nowak");
-        List<Employee> employeesSki = facade.finEmployeesWithNameLike("ski");
-        List<Employee> employessTurk = facade.finEmployeesWithNameLike("turk");
-        List<Employee> noEmployees = facade.finEmployeesWithNameLike("test");
+        List<Employee> employeesNowak= facade.findEmployeesWithNameLike("Nowak");
+        List<Employee> employeesSki = facade.findEmployeesWithNameLike("ski");
+        List<Employee> employessTurk = facade.findEmployeesWithNameLike("turk");
+        List<Employee> noEmployees = facade.findEmployeesWithNameLike("test");
 
         //Then
         Assert.assertEquals(2,employeesNowak.size());

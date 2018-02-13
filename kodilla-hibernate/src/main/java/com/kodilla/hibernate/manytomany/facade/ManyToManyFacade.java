@@ -23,7 +23,7 @@ public class ManyToManyFacade {
         return companyDao.findCompaniesWithNameLike(name);
     }
 
-    public List<Employee> finEmployeesWithNameLike(String name) {
+    public List<Employee> findEmployeesWithNameLike(String name) {
         return employeeDao.findEmployeesWithNameLike(name);
     }
 
