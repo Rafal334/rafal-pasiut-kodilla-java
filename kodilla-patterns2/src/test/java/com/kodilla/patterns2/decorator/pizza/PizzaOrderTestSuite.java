@@ -5,12 +5,12 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-public class PizzaDecoratorTestSuite {
+public class PizzaOrderTestSuite {
 
     @Test
     public void testBasicPizzaGetCost() {
         //Given
-        PizzaOrder pizzaOrder = new BasicPizza();
+        PizzaOrder pizzaOrder = new BasicPizzaOrder();
         //When
         BigDecimal cost = pizzaOrder.getCost();
         //Then
@@ -20,7 +20,7 @@ public class PizzaDecoratorTestSuite {
     @Test
     public void testBasicPizzaGetIngredients() {
         //Given
-        PizzaOrder pizzaOrder = new BasicPizza();
+        PizzaOrder pizzaOrder = new BasicPizzaOrder();
         //When
         String ingredients = pizzaOrder.getIngredients();
         //Then
@@ -30,7 +30,7 @@ public class PizzaDecoratorTestSuite {
     @Test
     public void testPizzaExtraCheeseGetCost() {
         //Given
-        PizzaOrder pizzaOrder = new ExtraCheese(new BasicPizza());
+        PizzaOrder pizzaOrder = new ExtraCheese(new BasicPizzaOrder());
         //When
         BigDecimal cost = pizzaOrder.getCost();
         //Then
@@ -40,7 +40,7 @@ public class PizzaDecoratorTestSuite {
     @Test
     public void testPizzaExtraCheeseGetIngredients() {
         //Given
-        PizzaOrder pizzaOrder = new ExtraCheese(new BasicPizza());
+        PizzaOrder pizzaOrder = new ExtraCheese(new BasicPizzaOrder());
         //When
         String ingredients = pizzaOrder.getIngredients();
         //Then
@@ -50,7 +50,7 @@ public class PizzaDecoratorTestSuite {
     @Test
     public void testPizzaDoubleExtraCheeseGetCost() {
         //Given
-        PizzaOrder pizzaOrder = new ExtraCheese(new ExtraCheese(new BasicPizza()));
+        PizzaOrder pizzaOrder = new ExtraCheese(new ExtraCheese(new BasicPizzaOrder()));
         //When
         BigDecimal cost = pizzaOrder.getCost();
         //Then
@@ -60,7 +60,7 @@ public class PizzaDecoratorTestSuite {
     @Test
     public void testPizzaDoubleExtraCheeseGetIngredients() {
         //Given
-        PizzaOrder pizzaOrder = new ExtraCheese(new ExtraCheese(new BasicPizza()));
+        PizzaOrder pizzaOrder = new ExtraCheese(new ExtraCheese(new BasicPizzaOrder()));
         //When
         String ingredients = pizzaOrder.getIngredients();
         //Then
@@ -70,7 +70,7 @@ public class PizzaDecoratorTestSuite {
     @Test
     public void testPizzaChickenOlivesRucolaGetCost() {
         //Given
-        PizzaOrder pizzaOrder = new Rucola(new Olives(new Chicken(new BasicPizza())));
+        PizzaOrder pizzaOrder = new Rucola(new Olives(new Chicken(new BasicPizzaOrder())));
         //When
         BigDecimal cost = pizzaOrder.getCost();
         //Then
@@ -80,7 +80,7 @@ public class PizzaDecoratorTestSuite {
     @Test
     public void testPizzaChickenOlivesRucolaGetIngredients() {
         //Given
-        PizzaOrder pizzaOrder = new Rucola(new Olives(new Chicken(new BasicPizza())));
+        PizzaOrder pizzaOrder = new Rucola(new Olives(new Chicken(new BasicPizzaOrder())));
         //When
         String ingredients = pizzaOrder.getIngredients();
         //Then
@@ -90,7 +90,7 @@ public class PizzaDecoratorTestSuite {
     @Test
     public void testPizzaOnionHamCornMushroomsGetCost() {
         //Given
-        PizzaOrder pizzaOrder = new Onion(new Ham(new Corn(new Mushrooms(new BasicPizza()))));
+        PizzaOrder pizzaOrder = new Onion(new Ham(new Corn(new Mushrooms(new BasicPizzaOrder()))));
         //When
         BigDecimal cost = pizzaOrder.getCost();
         //Then
@@ -100,7 +100,7 @@ public class PizzaDecoratorTestSuite {
     @Test
     public void testPizzaOnionHamCornMushroomsGetIngredients() {
         //Given
-        PizzaOrder pizzaOrder = new Onion(new Ham(new Corn(new Mushrooms(new BasicPizza()))));
+        PizzaOrder pizzaOrder = new Onion(new Ham(new Corn(new Mushrooms(new BasicPizzaOrder()))));
         //When
         String ingredients = pizzaOrder.getIngredients();
         //Then
